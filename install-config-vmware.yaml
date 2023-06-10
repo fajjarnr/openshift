@@ -1,0 +1,45 @@
+apiVersion: v1
+baseDomain: example.com
+compute:
+- hyperthreading: Enabled
+  name: worker
+  platform:
+    vsphere:
+      datacenter: my-datacenter
+      defaultDatastore: my-datastore
+      network: my-network
+      username: my-username
+      password: my-password
+      vCenter: my-vcenter
+  replicas: 3
+controlPlane:
+  hyperthreading: Enabled
+  name: master
+  platform:
+    vsphere:
+      datacenter: my-datacenter
+      defaultDatastore: my-datastore
+      network: my-network
+      username: my-username
+      password: my-password
+      vCenter: my-vcenter
+  replicas: 3
+metadata:
+  name: my-cluster
+networking:
+  clusterNetworks:
+  - cidr: 10.128.0.0/14
+    hostPrefix: 23
+  machineCIDR: 192.168.0.0/24
+  networkType: OpenShiftSDN
+  serviceCIDR: 172.30.0.0/16
+platform:
+  vsphere:
+    vcenter: 192.168.1.100
+    username: my-username
+    password: my-password
+publish: External
+pullSecret: |
+  "<isi_pull_secret_anda>"
+sshKey: |
+  "<isi_ssh_key_anda>"

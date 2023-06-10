@@ -1,0 +1,41 @@
+$TTL    604800
+@       IN      SOA     service.devops.lan. contact.devops.lan (
+                  1     ; Serial
+             604800     ; Refresh
+              86400     ; Retry
+            2419200     ; Expire
+             604800     ; Minimum
+)
+        IN      NS      service
+
+service.devops.lan.                 IN	A		192.168.22.1
+
+; Temp Bootstrap Node
+bootstrap.lab.devops.lan.		IN	A		192.168.22.200
+
+; Control Plane Nodes
+master1.lab.devops.lan.			IN      A		192.168.22.201
+master2.lab.devops.lan.			IN      A		192.168.22.202
+master3.lab.devops.lan.			IN      A		192.168.22.203
+
+; Worker Nodes
+worker1.lab.devops.lan.			IN      A		192.168.22.211
+worker2.lab.devops.lan.			IN      A		192.168.22.212
+
+; OpenShift Internal - Load balancer
+api.lab.devops.lan.			IN	A		192.168.22.1
+api-int.lab.devops.lan.			IN	A		192.168.22.1
+*.apps.lab.devops.lan.			IN	A		192.168.22.1
+
+; ETCD Cluster
+etcd-0.lab.devops.lan.			IN	A		192.168.22.201
+etcd-1.lab.devops.lan.			IN	A		192.168.22.202
+etcd-2.lab.devops.lan.			IN	A		192.168.22.203
+
+; OpenShift Internal SRV records (cluster name = lab)
+_etcd-server-ssl._tcp.lab.devops.lan.    86400     IN    SRV     0    10    2380    etcd-0.lab
+_etcd-server-ssl._tcp.lab.devops.lan.    86400     IN    SRV     0    10    2380    etcd-1.lab
+_etcd-server-ssl._tcp.lab.devops.lan.    86400     IN    SRV     0    10    2380    etcd-2.lab
+
+oauth-openshift.apps.lab.devops.lan.				IN     A     192.168.22.1
+console-openshift-console.apps.lab.devops.lan.		IN     A     192.168.22.1

@@ -1,0 +1,23 @@
+$TTL    604800
+@       IN      SOA     service.devops.lan. contact.devops.lan (
+                  1     ; Serial
+             604800     ; Refresh
+              86400     ; Retry
+            2419200     ; Expire
+             604800     ; Minimum
+)
+
+  IN      NS      service.devops.lan.
+
+1      IN    PTR    service.devops.lan.
+1      IN    PTR    api.lab.devops.lan.
+1      IN    PTR    api-int.lab.devops.lan.
+;
+200    IN    PTR    bootstrap.lab.devops.lan.
+;
+201    IN    PTR    master1.lab.devops.lan.
+202    IN    PTR    master2.lab.devops.lan.
+203    IN    PTR    master3.lab.devops.lan.
+;
+211    IN    PTR    worker1.lab.devops.lan.
+212    IN    PTR    worker2.lab.devops.lan.
