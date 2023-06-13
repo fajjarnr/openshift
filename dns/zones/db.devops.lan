@@ -21,6 +21,12 @@ master3.lab.devops.lan.			IN      A		192.168.22.203
 ; Worker Nodes
 worker1.lab.devops.lan.			IN      A		192.168.22.211
 worker2.lab.devops.lan.			IN      A		192.168.22.212
+worker3.lab.devops.lan.			IN      A		192.168.22.213
+
+; Infra Nodes
+infra1.lab.devops.lan.			IN      A		192.168.22.214
+infra2.lab.devops.lan.			IN      A		192.168.22.215
+infra3.lab.devops.lan.			IN      A		192.168.22.216
 
 ; OpenShift Internal - Load balancer
 api.lab.devops.lan.			IN	A		192.168.22.1

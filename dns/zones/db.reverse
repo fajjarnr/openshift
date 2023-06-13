@@ -21,3 +21,8 @@ $TTL    604800
 ;
 211    IN    PTR    worker1.lab.devops.lan.
 212    IN    PTR    worker2.lab.devops.lan.
+213    IN    PTR    worker3.lab.devops.lan.
+;
+214    IN    PTR    infra1.lab.devops.lan.
+215    IN    PTR    infra2.lab.devops.lan.
+216    IN    PTR    infra3.lab.devops.lan.
