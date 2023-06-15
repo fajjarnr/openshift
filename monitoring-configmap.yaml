@@ -1,0 +1,93 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-monitoring-config
+  namespace: openshift-monitoring
+data:
+  config.yaml: |
+    prometheusOperator:
+      nodeSelector:
+        node: monitoring-registry
+      tolerations:
+        - key: "node"
+          operator: "Equal"
+          value: "monitoring-registry"
+          effect: "NoSchedule"
+    prometheusK8s:
+      nodeSelector:
+        node: monitoring-registry
+      retention: 15d
+      tolerations:
+        - key: "node"
+          operator: "Equal"
+          value: "monitoring-registry"
+          effect: "NoSchedule"
+      volumeClaimTemplate:
+        spec:
+          storageClassName: ocs-storagecluster-ceph-rbd
+          volumeMode: Filesystem
+          resources:
+            requests:
+              storage: 100Gi
+    alertmanagerMain:
+      nodeSelector:
+        node: monitoring-registry
+      tolerations:
+        - key: "node"
+          operator: "Equal"
+          value: "monitoring-registry"
+          effect: "NoSchedule"
+      volumeClaimTemplate:
+        spec:
+          storageClassName: ocs-storagecluster-ceph-rbd
+          resources:
+            requests:
+              storage: 20Gi
+    kubeStateMetrics:
+      nodeSelector:
+        node: monitoring-registry
+      tolerations:
+        - key: "node"
+          operator: "Equal"
+          value: "monitoring-registry"
+          effect: "NoSchedule"
+    grafana:
+      nodeSelector:
+        node: monitoring-registry
+      tolerations:
+        - key: "node"
+          operator: "Equal"
+          value: "monitoring-registry"
+          effect: "NoSchedule"
+    telemeterClient:
+      nodeSelector:
+        node: monitoring-registry
+      tolerations:
+        - key: "node"
+          operator: "Equal"
+          value: "monitoring-registry"
+          effect: "NoSchedule"
+    k8sPrometheusAdapter:
+      nodeSelector:
+        node: monitoring-registry
+      tolerations:
+        - key: "node"
+          operator: "Equal"
+          value: "monitoring-registry"
+          effect: "NoSchedule"
+    openshiftStateMetrics:
+      nodeSelector:
+        node: monitoring-registry
+      tolerations:
+        - key: "node"
+          operator: "Equal"
+          value: "monitoring-registry"
+          effect: "NoSchedule"
+    thanosQuerier:
+      nodeSelector:
+        node: monitoring-registry
+      tolerations:
+        - key: "node"
+          operator: "Equal"
+          value: "monitoring-registry"
+          effect: "NoSchedule"

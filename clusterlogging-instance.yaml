@@ -1,0 +1,174 @@
+﻿apiVersion: logging.openshift.io/v1
+kind: ClusterLogging
+metadata:
+  name: instance
+  namespace: openshift-logging
+spec:
+  collection:
+    logs:
+      fluentd:
+        tolerations:
+          - effect: NoSchedule
+            key: node.ocs.openshift.io/storage
+            operator: Equal
+            value: 'true'
+          - effect: NoSchedule
+            key: node
+            operator: Equal
+            value: logging
+          - effect: NoSchedule
+            key: node
+            operator: Equal
+            value: monitoring-registry
+          - effect: NoSchedule
+            key: infra-internal
+            operator: Exists
+          - effect: NoSchedule
+            key: infra-external
+            operator: Exists
+      type: fluentd
+  curation:
+    curator:
+      nodeSelector:
+        node: logging
+      schedule: 30 3 * * *
+      tolerations:
+        - effect: NoSchedule
+          key: node
+          operator: Equal
+          value: logging
+    type: curator
+  logStore:
+    elasticsearch:
+      nodeCount: 3
+      nodeSelector:
+        node: logging
+      proxy:
+        resources:
+          limits:
+            memory: 256Mi
+          requests:
+            memory: 256Mi
+      redundancyPolicy: SingleRedundancy
+      resources:
+        requests:
+          memory: 16Gi
+      tolerations:
+        - effect: NoSchedule
+          key: node
+          operator: Equal
+          value: logging
+    type: elasticsearch
+  managementState: Managed
+  visualization:
+    kibana:
+      nodeSelector:
+        node: logging
+      replicas: 1
+      tolerations:
+        - effect: NoSchedule
+          key: node
+          operator: Equal
+          value: logging
+    type: kibana
+status:
+  collection:
+    logs:
+      fluentdStatus:
+        daemonSet: collector
+        nodes:
+          collector-79vk7: ip-10-0-179-118.ap-southeast-1.compute.internal
+          collector-thln8: ip-10-0-210-211.ap-southeast-1.compute.internal
+          collector-wp8p4: ip-10-0-244-241.ap-southeast-1.compute.internal
+          collector-7ktsx: ip-10-0-248-121.ap-southeast-1.compute.internal
+          collector-79kjg: ip-10-0-145-152.ap-southeast-1.compute.internal
+          collector-h4xvq: ip-10-0-160-3.ap-southeast-1.compute.internal
+          collector-pdtn7: ip-10-0-204-40.ap-southeast-1.compute.internal
+          collector-6n2fv: ip-10-0-252-178.ap-southeast-1.compute.internal
+          collector-7q2vh: ip-10-0-234-59.ap-southeast-1.compute.internal
+          collector-88cnv: ip-10-0-136-198.ap-southeast-1.compute.internal
+          collector-kcdwx: ip-10-0-131-160.ap-southeast-1.compute.internal
+          collector-q8bdw: ip-10-0-227-11.ap-southeast-1.compute.internal
+          collector-995v2: ip-10-0-197-175.ap-southeast-1.compute.internal
+          collector-svhkw: ip-10-0-169-138.ap-southeast-1.compute.internal
+          collector-wvmjm: ip-10-0-145-192.ap-southeast-1.compute.internal
+          collector-kzmc9: ip-10-0-231-167.ap-southeast-1.compute.internal
+          collector-v4d4k: ip-10-0-152-90.ap-southeast-1.compute.internal
+        pods:
+          failed: []
+          notReady: []
+          ready:
+            - collector-6n2fv
+            - collector-79kjg
+            - collector-79vk7
+            - collector-7ktsx
+            - collector-7q2vh
+            - collector-88cnv
+            - collector-995v2
+            - collector-h4xvq
+            - collector-kcdwx
+            - collector-kzmc9
+            - collector-pdtn7
+            - collector-q8bdw
+            - collector-svhkw
+            - collector-thln8
+            - collector-v4d4k
+            - collector-wp8p4
+            - collector-wvmjm
+  conditions:
+    - lastTransitionTime: '2023-06-15T04:54:16Z'
+      status: 'False'
+      type: CollectorDeadEnd
+  curation: {}
+  logStore:
+    elasticsearchStatus:
+      - cluster:
+          numDataNodes: 3
+          initializingShards: 0
+          numNodes: 3
+          activePrimaryShards: 11
+          status: green
+          pendingTasks: 0
+          relocatingShards: 0
+          activeShards: 22
+          unassignedShards: 0
+        clusterName: elasticsearch
+        nodeConditions:
+          elasticsearch-cdm-27wr6ti3-1: []
+          elasticsearch-cdm-27wr6ti3-2: []
+          elasticsearch-cdm-27wr6ti3-3: []
+        nodeCount: 3
+        pods:
+          client:
+            failed: []
+            notReady: []
+            ready:
+              - elasticsearch-cdm-27wr6ti3-1-75cdd7d856-9hkjg
+              - elasticsearch-cdm-27wr6ti3-2-575666df9d-dddd2
+              - elasticsearch-cdm-27wr6ti3-3-5c9c7c6dd4-n9kp9
+          data:
+            failed: []
+            notReady: []
+            ready:
+              - elasticsearch-cdm-27wr6ti3-1-75cdd7d856-9hkjg
+              - elasticsearch-cdm-27wr6ti3-2-575666df9d-dddd2
+              - elasticsearch-cdm-27wr6ti3-3-5c9c7c6dd4-n9kp9
+          master:
+            failed: []
+            notReady: []
+            ready:
+              - elasticsearch-cdm-27wr6ti3-1-75cdd7d856-9hkjg
+              - elasticsearch-cdm-27wr6ti3-2-575666df9d-dddd2
+              - elasticsearch-cdm-27wr6ti3-3-5c9c7c6dd4-n9kp9
+        shardAllocationEnabled: all
+  visualization:
+    kibanaStatus:
+      - deployment: kibana
+        pods:
+          failed: []
+          notReady: []
+          ready:
+            - kibana-67fdc845f7-hhpgx
+        replicaSets:
+          - kibana-67fdc845f7
+        replicas: 1

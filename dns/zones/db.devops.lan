@@ -45,3 +45,6 @@ _etcd-server-ssl._tcp.lab.devops.lan.    86400     IN    SRV     0    10    2380
 
 oauth-openshift.apps.lab.devops.lan.				IN     A     192.168.22.1
 console-openshift-console.apps.lab.devops.lan.		IN     A     192.168.22.1
+
+;
+nfs-server.lab.devops.lan.		IN      A		192.168.22.217

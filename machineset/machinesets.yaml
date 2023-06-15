@@ -1,0 +1,39 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  creationTimestamp: null
+  labels:
+    machine.openshift.io/cluster-api-cluster: lab-gbzw4 
+  name: lab-gbzw4-worker
+  namespace: openshift-machine-api
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-cluster: lab-gbzw4 
+      machine.openshift.io/cluster-api-machineset: lab-gbzw4-worker 
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        machine.openshift.io/cluster-api-cluster: lab-gbzw4 
+        machine.openshift.io/cluster-api-machine-role: worker 
+        machine.openshift.io/cluster-api-machine-type: worker 
+        machine.openshift.io/cluster-api-machineset: lab-gbzw4-worker 
+    spec:
+      metadata:
+        creationTimestamp: null
+        labels:
+          node-role.kubernetes.io/worker: "" 
+      providerSpec:
+        value:
+          apiVersion: baremetal.cluster.k8s.io/v1alpha1
+          hostSelector: {}
+          image:
+            checksum: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.12/4.12.0/sha256sum.txt
+            url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.12/4.12.0/rhcos-qemu.x86_64.qcow2.gz
+          kind: BareMetalMachineProviderSpec
+          metadata:
+            creationTimestamp: null
+          userData:
+            name: worker-user-data

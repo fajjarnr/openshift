@@ -26,3 +26,6 @@ $TTL    604800
 214    IN    PTR    infra1.lab.devops.lan.
 215    IN    PTR    infra2.lab.devops.lan.
 216    IN    PTR    infra3.lab.devops.lan.
+;
+217    IN    PTR    nfs-server.lab.devops.lan.
+
