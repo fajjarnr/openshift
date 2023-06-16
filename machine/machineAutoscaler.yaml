@@ -1,0 +1,14 @@
+﻿apiVersion: autoscaling.openshift.io/v1beta1
+kind: MachineAutoscaler
+metadata:
+  name: rosa-opentlc-gsh2h-infra-us-east-1a
+  namespace: openshift-machine-api
+  labels:
+    hive.openshift.io/machine-pool: infra
+spec:
+  minReplicas: 1
+  maxReplicas: 3
+  scaleTargetRef:
+    apiVersion: machine.openshift.io/v1beta1
+    kind: MachineSet
+    name: rosa-opentlc-gsh2h-infra-us-east-1a
