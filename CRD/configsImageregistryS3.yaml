@@ -1,0 +1,34 @@
+﻿apiVersion: imageregistry.operator.openshift.io/v1
+kind: Config
+metadata:
+  name: cluster
+spec:
+  logLevel: Normal
+  nodeSelector:
+    node: monitoring-registry
+  rolloutStrategy: RollingUpdate
+  operatorLogLevel: Normal
+  requests:
+    read:
+      maxWaitInQueue: 0s
+    write:
+      maxWaitInQueue: 0s
+  defaultRoute: true
+  observedConfig: null
+  managementState: Managed
+  proxy: {}
+  unsupportedConfigOverrides: null
+  httpSecret: 9aa4781e17ecb188aa75d7024329c63ab8cc35be392c93fba045d102f0b9ded269da7a905e44401442f9c64266389ab0d6e3b52b4e2ea0894ab95cce33b8c9bc
+  storage:
+    managementState: Managed
+    s3:
+      bucket: cluster-w2bv5-h7jv5-image-registry-us-east-2-niewfhvnpfsegnpam
+      encrypt: true
+      region: us-east-2
+      virtualHostedStyle: false
+  replicas: 1
+  tolerations:
+    - effect: NoSchedule
+      key: node
+      operator: Equal
+      value: monitoring-registry

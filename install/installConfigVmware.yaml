@@ -1,0 +1,39 @@
+apiVersion: v1
+baseDomain: <isi_domain_anda>
+compute:
+  architecture: amd64
+  hyperthreading: Enabled
+  name: worker
+  replicas: 0
+  platform: {}
+controlPlane:
+  architecture: amd64
+  hyperthreading: Enabled
+  name: master
+  replicas: 3
+  platform: {}
+metadata:
+  creationTimestamp: null
+  name: <nama_cluster_anda>
+networking:
+  clusterNetworks:
+    - cidr: 10.128.0.0/14
+      hostPrefix: 23
+  machineNetwork:
+    - cidr: 10.0.0.0/16
+  networkType: OpenShiftSDN
+  serviceNetwork:
+    - 172.30.0.0/16
+platform:
+  vsphere:
+    datacenter:
+    defaultDatastore:
+    folder:
+    username: <isi_sendiri>
+    password: <isi_sendiri>
+    # diskType: thin
+publish: External
+pullSecret: |
+  "<isi_pull_secret_anda>"
+sshKey: |
+  "<isi_ssh_key_anda>"

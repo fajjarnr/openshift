@@ -1,0 +1,50 @@
+apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  name: cluster
+spec:
+  identityProviders:
+    - ldap:
+        type: LDAP
+        name: AD-EXAMPLE1
+        attributes:
+          email:
+            - mail
+          id:
+            - sAMAccountName
+          name:
+            - sAMAccountName
+          preferredUsername:
+            - sAMAccountName
+        bindDN: CN=s-ocpadmin,OU=Service-Accounts,OU=Resource,DC=example,DC=com
+        bindPassword:
+          name: ldap-secret
+        ca:
+          name: ca-config-map
+        insecure: false
+        url: ldaps://ldap.example.com:636/DC=example,DC=com?sAMAccountName?sub?(|(memberOf=CN=Sg.OPCClusterAdm,OU=Application,OU=Security-Groups,OU=Resource,DC=example,DC=com)(memberOf=CN=Sg.OPCChatbot,OU=Application,OU=SecurityGroups,OU=Resource,DC=example,DC=com))
+        mappingMethod: claim
+    - ldap:
+        type: LDAP
+        name: AD-EXAMPLE2
+        attributes:
+          email:
+            - mail
+          id:
+            - sAMAccountName
+          name:
+            - sAMAccountName
+          preferredUsername:
+            - sAMAccountName
+        bindDN: CN=Service OPC Admin,OU=SERVICEACCOUNTS,OU=RESOURCES,DC=corp,DC=example,DC=co,DC=id
+        bindPassword:
+          name: ldap-secret
+        insecure: true
+        url: ldap://ldap.corp.example.co.id:389/DC=corp,DC=example,DC=co,DC=id?sAMAccountName??(|(memberOf=CN=sg.pol.ocpclusteradmin,OU=APPLICATION,OU=SECURITYGROUPS,OU=RESOURCES,DC=corp,DC=example,DC=co,DC=id)(CN=CN=sg.pol.ocpintranetdev,OU=APPLICATION,OU=SECURITYGROUPS,OU=RESOURCES,DC=corp,DC=example,DC=co,DC=id))
+        mappingMethod: claim
+    - htpasswd:
+        type: HTPasswd
+        name: LOCALUSER
+        fileData:
+          name: localuser
+        mappingMethod: claim
