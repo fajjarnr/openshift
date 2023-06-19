@@ -3,21 +3,21 @@ kind: IngressController
 metadata:
   labels:
     network.openshift.io/policy-group: ingress
-  name: external-router
+  name: internal-router
   namespace: openshift-ingress-operator
 spec:
+  domain: internal-apps.cluster-cxtzd.cxtzd.sandbox1266.opentlc.com
   defaultCertificate:
-    name: default-ingress-tls
-    domain: apps-ext.jktclus.gudanggaramtbk.com
+    name: ingress-certs-2023-06-16
   nodePlacement:
     nodeSelector:
       matchLabels:
-        node: external-router
+        node: internal-router
         node-role.kubernetes.io/infra: ''
     tolerations:
       - effect: NoSchedule
-        key: infra-external
+        key: infra-internal
         operator: Exists
   routeSelector:
     matchLabels:
-      router: external
+      router: internal

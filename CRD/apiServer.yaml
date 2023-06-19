@@ -1,0 +1,26 @@
+﻿apiVersion: config.openshift.io/v1
+kind: APIServer
+metadata:
+  annotations:
+    include.release.openshift.io/ibm-cloud-managed: 'true'
+    include.release.openshift.io/self-managed-high-availability: 'true'
+    include.release.openshift.io/single-node-developer: 'true'
+    oauth-apiserver.openshift.io/secure-token-storage: 'true'
+    release.openshift.io/create-only: 'true'
+  name: cluster
+  ownerReferences:
+    - apiVersion: config.openshift.io/v1
+      kind: ClusterVersion
+      name: version
+      uid: 8c768d05-becb-4427-b611-76bf17fd03b3
+spec:
+  audit:
+    profile: Default
+  encryption:
+    type: aescbc
+  servingCerts:
+    namedCertificates:
+      - names:
+          - api.cluster-cxtzd.cxtzd.sandbox1266.opentlc.com
+  servingCertificate:
+    name: api-certificate

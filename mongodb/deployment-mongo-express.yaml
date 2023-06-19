@@ -1,0 +1,45 @@
+﻿kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mongo-express
+  namespace: airbnb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-express
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mongo-express
+    spec:
+      containers:
+        - name: mongo-express
+          image: mongo-express
+          ports:
+            - containerPort: 8081
+              protocol: TCP
+          env:
+            - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+              value: admin
+            - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+              value: rahasia
+            - name: ME_CONFIG_MONGODB_SERVER
+              value: mongodb-service
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600

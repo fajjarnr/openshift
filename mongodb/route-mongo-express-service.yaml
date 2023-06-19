@@ -1,0 +1,14 @@
+﻿kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: mongo-express-service
+  namespace: airbnb
+spec:
+  host: mongo-express-service-airbnb.apps.cluster-cxtzd.cxtzd.sandbox1266.opentlc.com
+  to:
+    kind: Service
+    name: mongo-express-service
+    weight: 100
+  port:
+    targetPort: mongo-express
+  wildcardPolicy: None

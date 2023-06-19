@@ -1,0 +1,14 @@
+﻿kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mongodb-data
+  namespace: airbnb
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  volumeName: pvc-0e0c9eff-c21f-488d-b2a4-ed8232cf159c
+  storageClassName: ocs-storagecluster-ceph-rbd
+  volumeMode: Filesystem

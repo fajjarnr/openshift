@@ -3,29 +3,29 @@ kind: MachineSet
 metadata:
   labels:
     machine.openshift.io/cluster-api-cluster: cluster-cxtzd-g6x9q
-  name: external-router
+  name: internal-router
   namespace: openshift-machine-api
 spec:
   replicas: 2
   selector:
     matchLabels:
       machine.openshift.io/cluster-api-cluster: cluster-cxtzd-g6x9q
-      machine.openshift.io/cluster-api-machineset: cluster-cxtzd-g6x9q-external-router-ap-southeast-1b
+      machine.openshift.io/cluster-api-machineset: cluster-cxtzd-g6x9q-internal-router-ap-southeast-1b
   template:
     metadata:
       labels:
         machine.openshift.io/cluster-api-cluster: cluster-cxtzd-g6x9q
         machine.openshift.io/cluster-api-machine-role: infra
         machine.openshift.io/cluster-api-machine-type: infra
-        machine.openshift.io/cluster-api-machineset: cluster-cxtzd-g6x9q-external-router-ap-southeast-1b
+        machine.openshift.io/cluster-api-machineset: cluster-cxtzd-g6x9q-internal-router-ap-southeast-1b
     spec:
       taints:
-        - key: infra-external
+        - key: infra-internal
           effect: NoSchedule
       metadata:
         labels:
           node-role.kubernetes.io/infra: ''
-          node: external-router
+          node: internal-router
       providerSpec:
         value:
           ami:

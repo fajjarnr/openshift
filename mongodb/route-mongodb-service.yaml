@@ -1,0 +1,14 @@
+﻿kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: mongodb-service
+  namespace: airbnb
+spec:
+  host: mongodb-service-airbnb.apps.cluster-cxtzd.cxtzd.sandbox1266.opentlc.com
+  to:
+    kind: Service
+    name: mongodb-service
+    weight: 100
+  port:
+    targetPort: mongodb
+  wildcardPolicy: None

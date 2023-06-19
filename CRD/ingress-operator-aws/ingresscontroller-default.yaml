@@ -1,0 +1,115 @@
+﻿apiVersion: operator.openshift.io/v1
+kind: IngressController
+metadata:
+  name: default
+  namespace: openshift-ingress-operator
+spec:
+  nodePlacement:
+    nodeSelector:
+      matchLabels:
+        node: default-router
+        node-role.kubernetes.io/infra: ''
+    tolerations:
+      - effect: NoSchedule
+        key: infra-external
+        operator: Exists
+  tuningOptions: {}
+  clientTLS:
+    clientCA:
+      name: ''
+    clientCertificatePolicy: ''
+  unsupportedConfigOverrides: null
+  defaultCertificate:
+    name: ingress-certs-2023-06-16
+  httpErrorCodePages:
+    name: ''
+  replicas: 2
+  httpEmptyRequestsPolicy: Respond
+  httpCompression: {}
+status:
+  availableReplicas: 1
+  conditions:
+    - lastTransitionTime: '2023-06-16T13:19:08Z'
+      reason: Valid
+      status: 'True'
+      type: Admitted
+    - lastTransitionTime: '2023-06-16T13:19:08Z'
+      status: 'True'
+      type: PodsScheduled
+    - lastTransitionTime: '2023-06-19T02:25:56Z'
+      message: The deployment has Available status condition set to True
+      reason: DeploymentAvailable
+      status: 'True'
+      type: DeploymentAvailable
+    - lastTransitionTime: '2023-06-19T02:25:56Z'
+      message: Minimum replicas requirement is met
+      reason: DeploymentMinimumReplicasMet
+      status: 'True'
+      type: DeploymentReplicasMinAvailable
+    - lastTransitionTime: '2023-06-19T03:57:04Z'
+      message: 1/2 of replicas are available
+      reason: DeploymentReplicasNotAvailable
+      status: 'False'
+      type: DeploymentReplicasAllAvailable
+    - lastTransitionTime: '2023-06-16T13:19:08Z'
+      message: The endpoint publishing strategy supports a managed load balancer
+      reason: WantedByEndpointPublishingStrategy
+      status: 'True'
+      type: LoadBalancerManaged
+    - lastTransitionTime: '2023-06-16T13:23:41Z'
+      message: The LoadBalancer service is provisioned
+      reason: LoadBalancerProvisioned
+      status: 'True'
+      type: LoadBalancerReady
+    - lastTransitionTime: '2023-06-16T13:19:08Z'
+      message: >-
+        DNS management is supported and zones are specified in the cluster DNS
+        config.
+      reason: Normal
+      status: 'True'
+      type: DNSManaged
+    - lastTransitionTime: '2023-06-16T13:24:04Z'
+      message: The record is provisioned in all reported zones.
+      reason: NoFailedZones
+      status: 'True'
+      type: DNSReady
+    - lastTransitionTime: '2023-06-19T02:25:56Z'
+      status: 'True'
+      type: Available
+    - lastTransitionTime: '2023-06-16T13:19:08Z'
+      status: 'False'
+      type: Progressing
+    - lastTransitionTime: '2023-06-19T02:25:56Z'
+      status: 'False'
+      type: Degraded
+    - lastTransitionTime: '2023-06-16T13:19:08Z'
+      message: IngressController is upgradeable.
+      reason: Upgradeable
+      status: 'True'
+      type: Upgradeable
+    - lastTransitionTime: '2023-06-16T13:29:27Z'
+      message: Canary route checks for the default ingress controller are successful
+      reason: CanaryChecksSucceeding
+      status: 'True'
+      type: CanaryChecksSucceeding
+  domain: apps.cluster-cxtzd.cxtzd.sandbox1266.opentlc.com
+  endpointPublishingStrategy:
+    loadBalancer:
+      scope: External
+    type: LoadBalancerService
+  observedGeneration: 6
+  selector: ingresscontroller.operator.openshift.io/deployment-ingresscontroller=default
+  tlsProfile:
+    ciphers:
+      - ECDHE-ECDSA-AES128-GCM-SHA256
+      - ECDHE-RSA-AES128-GCM-SHA256
+      - ECDHE-ECDSA-AES256-GCM-SHA384
+      - ECDHE-RSA-AES256-GCM-SHA384
+      - ECDHE-ECDSA-CHACHA20-POLY1305
+      - ECDHE-RSA-CHACHA20-POLY1305
+      - DHE-RSA-AES128-GCM-SHA256
+      - DHE-RSA-AES256-GCM-SHA384
+      - TLS_AES_128_GCM_SHA256
+      - TLS_AES_256_GCM_SHA384
+      - TLS_CHACHA20_POLY1305_SHA256
+    minTLSVersion: VersionTLS12

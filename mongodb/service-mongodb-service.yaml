@@ -1,0 +1,22 @@
+﻿kind: Service
+apiVersion: v1
+metadata:
+  name: mongodb-service
+  namespace: airbnb
+spec:
+  clusterIP: 172.30.144.230
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: mongodb
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
+  internalTrafficPolicy: Cluster
+  clusterIPs:
+    - 172.30.144.230
+  type: ClusterIP
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    app: mongodb

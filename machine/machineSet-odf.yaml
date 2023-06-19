@@ -2,22 +2,22 @@
 kind: MachineSet
 metadata:
   labels:
-    machine.openshift.io/cluster-api-cluster: cluster-w2bv5-h7jv5
+    machine.openshift.io/cluster-api-cluster: cluster-cxtzd-g6x9q
   name: openshift-data-foundation
   namespace: openshift-machine-api
 spec:
   replicas: 3
   selector:
     matchLabels:
-      machine.openshift.io/cluster-api-cluster: cluster-w2bv5-h7jv5
-      machine.openshift.io/cluster-api-machineset: cluster-w2bv5-h7jv5-openshift-data-foundation-us-east-2c
+      machine.openshift.io/cluster-api-cluster: cluster-cxtzd-g6x9q
+      machine.openshift.io/cluster-api-machineset: cluster-cxtzd-g6x9q-openshift-data-foundation-ap-southeast-1b
   template:
     metadata:
       labels:
-        machine.openshift.io/cluster-api-cluster: cluster-w2bv5-h7jv5
+        machine.openshift.io/cluster-api-cluster: cluster-cxtzd-g6x9q
         machine.openshift.io/cluster-api-machine-role: infra
         machine.openshift.io/cluster-api-machine-type: infra
-        machine.openshift.io/cluster-api-machineset: cluster-w2bv5-h7jv5-openshift-data-foundation-us-east-2c
+        machine.openshift.io/cluster-api-machineset: cluster-cxtzd-g6x9q-openshift-data-foundation-ap-southeast-1b
     spec:
       taints:
         - key: node.ocs.openshift.io/storage
@@ -30,7 +30,7 @@ spec:
       providerSpec:
         value:
           ami:
-            id: ami-02c627a4f7f3cef78
+            id: ami-0e60320100241049a
           apiVersion: awsproviderconfig.openshift.io/v1beta1
           blockDevices:
             - ebs:
@@ -41,24 +41,24 @@ spec:
             name: aws-cloud-credentials
           deviceIndex: 0
           iamInstanceProfile:
-            id: cluster-w2bv5-h7jv5-worker-profile
+            id: cluster-cxtzd-g6x9q-worker-profile
           instanceType: c5.4xlarge
           kind: AWSMachineProviderConfig
           placement:
-            availabilityZone: us-east-2c
-            region: us-east-2
+            availabilityZone: ap-southeast-1b
+            region: ap-southeast-1
           securityGroups:
             - filters:
                 - name: tag:Name
                   values:
-                    - cluster-w2bv5-h7jv5-worker-sg
+                    - cluster-cxtzd-g6x9q-worker-sg
           subnet:
             filters:
               - name: tag:Name
                 values:
-                  - cluster-w2bv5-h7jv5-private-us-east-2c
+                  - cluster-cxtzd-g6x9q-private-ap-southeast-1b
           tags:
-            - name: kubernetes.io/cluster/cluster-w2bv5-h7jv5
+            - name: kubernetes.io/cluster/cluster-cxtzd-g6x9q
               value: owned
             - name: email
               value: zfajart@gmail.com
