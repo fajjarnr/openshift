@@ -6,9 +6,9 @@ metadata:
   name: external-router
   namespace: openshift-ingress-operator
 spec:
-  domain: apps-ext.jktclus.gudanggaramtbk.com
+  domain: external-apps.cluster-csvlw.csvlw.sandbox1045.opentlc.com
   defaultCertificate:
-    name: default-ingress-tls
+    name: ingress-certs-2023-06-19
   nodePlacement:
     nodeSelector:
       matchLabels:

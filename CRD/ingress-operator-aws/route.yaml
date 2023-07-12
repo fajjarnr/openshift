@@ -4,11 +4,11 @@ metadata:
   labels:
     app: django-psql-example
     template: django-psql-example
-    type: internal # type of route
+    type: external # type of route
   name: django-psql-example
   namespace: test-sharding
 spec:
-  host: django-psql-example-test-sharding.internal-apps.cluster-cxtzd.cxtzd.sandbox1266.opentlc.com
+  host: django-psql-example-test-sharding.external-apps.cluster-csvlw.csvlw.sandbox1045.opentlc.com
   subdomain: ''
   to:
     kind: Service

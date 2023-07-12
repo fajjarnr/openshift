@@ -2,22 +2,22 @@
 kind: MachineSet
 metadata:
   labels:
-    machine.openshift.io/cluster-api-cluster: cluster-cxtzd-g6x9q
+    machine.openshift.io/cluster-api-cluster: cluster-csvlw-fjfgb
   name: default-router
   namespace: openshift-machine-api
 spec:
   replicas: 2
   selector:
     matchLabels:
-      machine.openshift.io/cluster-api-cluster: cluster-cxtzd-g6x9q
-      machine.openshift.io/cluster-api-machineset: cluster-cxtzd-g6x9q-default-router-ap-southeast-1b
+      machine.openshift.io/cluster-api-cluster: cluster-csvlw-fjfgb
+      machine.openshift.io/cluster-api-machineset: cluster-csvlw-fjfgb-default-router-ap-southeast-1c
   template:
     metadata:
       labels:
-        machine.openshift.io/cluster-api-cluster: cluster-cxtzd-g6x9q
+        machine.openshift.io/cluster-api-cluster: cluster-csvlw-fjfgb
         machine.openshift.io/cluster-api-machine-role: infra
         machine.openshift.io/cluster-api-machine-type: infra
-        machine.openshift.io/cluster-api-machineset: cluster-cxtzd-g6x9q-default-router-ap-southeast-1b
+        machine.openshift.io/cluster-api-machineset: cluster-csvlw-fjfgb-default-router-ap-southeast-1c
     spec:
       taints:
         - key: infra-external
@@ -40,24 +40,24 @@ spec:
             name: aws-cloud-credentials
           deviceIndex: 0
           iamInstanceProfile:
-            id: cluster-cxtzd-g6x9q-worker-profile
+            id: cluster-csvlw-fjfgb-worker-profile
           instanceType: c5.xlarge
           kind: AWSMachineProviderConfig
           placement:
-            availabilityZone: ap-southeast-1b
+            availabilityZone: ap-southeast-1c
             region: ap-southeast-1
           securityGroups:
             - filters:
                 - name: tag:Name
                   values:
-                    - cluster-cxtzd-g6x9q-worker-sg
+                    - cluster-csvlw-fjfgb-worker-sg
           subnet:
             filters:
               - name: tag:Name
                 values:
-                  - cluster-cxtzd-g6x9q-private-ap-southeast-1b
+                  - cluster-csvlw-fjfgb-private-ap-southeast-1c
           tags:
-            - name: kubernetes.io/cluster/cluster-cxtzd-g6x9q
+            - name: kubernetes.io/cluster/cluster-csvlw-fjfgb
               value: owned
             - name: email
               value: zfajart@gmail.com

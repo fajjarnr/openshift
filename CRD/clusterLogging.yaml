@@ -55,8 +55,8 @@ spec:
       resources:
         requests:
           memory: 16Gi
-        storage:
-          size: 250G
+      storage:
+        size: 250G
         storageClassName: ocs-storagecluster-ceph-rbd
       tolerations:
         - effect: NoSchedule

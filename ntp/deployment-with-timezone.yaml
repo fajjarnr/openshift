@@ -1,0 +1,31 @@
+﻿kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: httpd
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpd
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: httpd
+    spec:
+      volumes:
+        - name: tz
+          configMap:
+            name: tz-jakarta
+            defaultMode: 420
+      containers:
+        - name: httpd
+          image: image-registry.openshift-image-registry.svc:5000/openshift/httpd:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          volumeMounts:
+            - name: tz
+              mountPath: /etc/localtime
+              subPath: localtime
