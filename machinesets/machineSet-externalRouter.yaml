@@ -2,22 +2,22 @@
 kind: MachineSet
 metadata:
   labels:
-    machine.openshift.io/cluster-api-cluster: cluster-csvlw-fjfgb
+    machine.openshift.io/cluster-api-cluster: cluster-l7vjc-ss898
   name: external-router
   namespace: openshift-machine-api
 spec:
   replicas: 2
   selector:
     matchLabels:
-      machine.openshift.io/cluster-api-cluster: cluster-csvlw-fjfgb
-      machine.openshift.io/cluster-api-machineset: cluster-csvlw-fjfgb-external-router-ap-southeast-1c
+      machine.openshift.io/cluster-api-cluster: cluster-l7vjc-ss898
+      machine.openshift.io/cluster-api-machineset: cluster-l7vjc-ss898-external-router-ap-southeast-1a
   template:
     metadata:
       labels:
-        machine.openshift.io/cluster-api-cluster: cluster-csvlw-fjfgb
+        machine.openshift.io/cluster-api-cluster: cluster-l7vjc-ss898
         machine.openshift.io/cluster-api-machine-role: infra
         machine.openshift.io/cluster-api-machine-type: infra
-        machine.openshift.io/cluster-api-machineset: cluster-csvlw-fjfgb-external-router-ap-southeast-1c
+        machine.openshift.io/cluster-api-machineset: cluster-l7vjc-ss898-external-router-ap-southeast-1a
     spec:
       taints:
         - key: infra-external
@@ -40,24 +40,24 @@ spec:
             name: aws-cloud-credentials
           deviceIndex: 0
           iamInstanceProfile:
-            id: cluster-csvlw-fjfgb-worker-profile
+            id: cluster-l7vjc-ss898-worker-profile
           instanceType: c5.xlarge
           kind: AWSMachineProviderConfig
           placement:
-            availabilityZone: ap-southeast-1c
+            availabilityZone: ap-southeast-1a
             region: ap-southeast-1
           securityGroups:
             - filters:
                 - name: tag:Name
                   values:
-                    - cluster-csvlw-fjfgb-worker-sg
+                    - cluster-l7vjc-ss898-worker-sg
           subnet:
             filters:
               - name: tag:Name
                 values:
-                  - cluster-csvlw-fjfgb-private-ap-southeast-1c
+                  - cluster-l7vjc-ss898-private-ap-southeast-1a
           tags:
-            - name: kubernetes.io/cluster/cluster-csvlw-fjfgb
+            - name: kubernetes.io/cluster/cluster-l7vjc-ss898
               value: owned
             - name: email
               value: zfajart@gmail.com

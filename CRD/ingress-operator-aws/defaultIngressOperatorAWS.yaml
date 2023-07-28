@@ -1,0 +1,27 @@
+###############
+
+# contoh
+# Surya Madristrindo
+
+##############
+
+apiVersion: operator.openshift.io/v1
+kind: IngressController
+metadata:
+  labels:
+    network.openshift.io/policy-group: ingress
+  name: default
+  namespace: openshift-ingress-operator
+spec:
+  replicas: 2
+  defaultCertificate:
+    name: ingress-certs-2023-07-14
+  nodePlacement:
+    nodeSelector:
+      matchLabels:
+        node: default-router
+        node-role.kubernetes.io/infra: ''
+    tolerations:
+      - effect: NoSchedule
+        key: infra-internal
+        operator: Exists

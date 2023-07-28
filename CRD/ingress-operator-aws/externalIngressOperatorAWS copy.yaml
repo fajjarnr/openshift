@@ -1,23 +1,30 @@
+###############
+
+# contoh
+# Surya Madristrindo
+
+##############
+
 apiVersion: operator.openshift.io/v1
 kind: IngressController
 metadata:
   labels:
     network.openshift.io/policy-group: ingress
-  name: internal-router
+  name: external-router
   namespace: openshift-ingress-operator
 spec:
-  domain: internal-apps.cluster-cxtzd.cxtzd.sandbox1266.opentlc.com
+  domain: external-apps.cluster-l7vjc.l7vjc.sandbox487.opentlc.com #sesuaikan domain
   defaultCertificate:
-    name: ingress-certs-2023-06-16
+    name: ingress-certs-2023-07-14 #sesuaikan sertifikat
   nodePlacement:
     nodeSelector:
       matchLabels:
-        node: internal-router
+        node: external-router
         node-role.kubernetes.io/infra: ''
     tolerations:
       - effect: NoSchedule
-        key: infra-internal
+        key: infra-external
         operator: Exists
   routeSelector:
     matchLabels:
-      router: internal
+      router: external

@@ -1,0 +1,39 @@
+##############
+
+#  CHECK README
+
+##############
+
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: worker-custom-timezone-configuration
+spec:
+  config:
+    ignition:
+      config: {}
+      security:
+        tls: {}
+      timeouts: {}
+      version: 3.2.0
+    networkd: {}
+    passwd: {}
+    storage: {}
+    systemd:
+      units:
+        - contents: |
+            [Unit]
+            Description=set timezone
+            After=network-online.target
+
+            [Service]
+            Type=oneshot
+            ExecStart=timedatectl set-timezone Asia/Jakarta
+
+            [Install]
+            WantedBy=multi-user.target
+          enabled: true
+          name: custom-timezone.service
+  osImageURL: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:c5c50e7d4b74f87c74f7902ce11f1c0f8dadd04a8987940052bf6fa52b79bf10

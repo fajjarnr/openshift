@@ -4,16 +4,10 @@ metadata:
   name: instance
   namespace: openshift-logging
 spec:
-  managementState: Managed
   collection:
     logs:
-      type: fluentd
       fluentd:
         tolerations:
-          - effect: NoSchedule
-            key: node.ocs.openshift.io/storage
-            operator: Equal
-            value: 'true'
           - effect: NoSchedule
             key: node
             operator: Equal
@@ -22,32 +16,8 @@ spec:
             key: node
             operator: Equal
             value: monitoring-registry
-          - effect: NoSchedule
-            key: infra-internal
-            operator: Exists
-          - effect: NoSchedule
-            key: infra-external
-            operator: Exists
-  curation:
-    type: curator
-    curator:
-      nodeSelector:
-        node: logging
-      schedule: 30 3 * * *
-      tolerations:
-        - effect: NoSchedule
-          key: node
-          operator: Equal
-          value: logging
+      type: fluentd
   logStore:
-    type: elasticsearch
-    retentionPolicy:
-      application:
-        maxAge: 7d
-      audit:
-        maxAge: 7d
-      infra:
-        maxAge: 7d
     elasticsearch:
       nodeCount: 3
       nodeSelector:
@@ -60,18 +30,28 @@ spec:
             memory: 256Mi
       redundancyPolicy: SingleRedundancy
       resources:
+        limits:
+          memory: 16Gi
         requests:
           memory: 16Gi
       storage:
-        size: 250G
-        storageClassName: ocs-storagecluster-ceph-rbd
+        size: 100G
+        storageClassName: gp2
       tolerations:
         - effect: NoSchedule
           key: node
           operator: Equal
           value: logging
+    retentionPolicy:
+      application:
+        maxAge: 7d
+      audit:
+        maxAge: 7d
+      infra:
+        maxAge: 7d
+    type: elasticsearch
+  managementState: Managed
   visualization:
-    type: kibana
     kibana:
       nodeSelector:
         node: logging
@@ -81,3 +61,4 @@ spec:
           key: node
           operator: Equal
           value: logging
+    type: kibana

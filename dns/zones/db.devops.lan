@@ -8,7 +8,7 @@ $TTL    604800
 )
         IN      NS      service
 
-service.devops.lan.                 IN	A		192.168.22.1
+service.devops.lan.                     IN	A		192.168.22.1
 
 ; Temp Bootstrap Node
 bootstrap.lab.devops.lan.		IN	A		192.168.22.200
@@ -39,12 +39,12 @@ etcd-1.lab.devops.lan.			IN	A		192.168.22.202
 etcd-2.lab.devops.lan.			IN	A		192.168.22.203
 
 ; OpenShift Internal SRV records (cluster name = lab)
-_etcd-server-ssl._tcp.lab.devops.lan.    86400     IN    SRV     0    10    2380    etcd-0.lab
-_etcd-server-ssl._tcp.lab.devops.lan.    86400     IN    SRV     0    10    2380    etcd-1.lab
-_etcd-server-ssl._tcp.lab.devops.lan.    86400     IN    SRV     0    10    2380    etcd-2.lab
+_etcd-server-ssl._tcp.lab.devops.lan.    86400     IN    SRV     0    10    2380    etcd-0.lab.devops.lan
+_etcd-server-ssl._tcp.lab.devops.lan.    86400     IN    SRV     0    10    2380    etcd-1.lab.devops.lan
+_etcd-server-ssl._tcp.lab.devops.lan.    86400     IN    SRV     0    10    2380    etcd-2.lab.devops.lan
 
 oauth-openshift.apps.lab.devops.lan.				IN     A     192.168.22.1
-console-openshift-console.apps.lab.devops.lan.		IN     A     192.168.22.1
+console-openshift-console.apps.lab.devops.lan.                  IN     A     192.168.22.1
 
 ;
 nfs-server.lab.devops.lan.		IN      A		192.168.22.217
