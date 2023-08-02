@@ -6,31 +6,9 @@ metadata:
     pools.operator.machineconfiguration.openshift.io/worker: ''
   name: router
 spec:
-  configuration:
-    name: rendered-router-d69a24735dbe7e9a5e85a06e607ae408 # name auto generate (tidak perlu dibuat)
-    source: # custom sesuai kebutuhan (dibawah default)
-      - apiVersion: machineconfiguration.openshift.io/v1
-        kind: MachineConfig
-        name: 00-worker
-      - apiVersion: machineconfiguration.openshift.io/v1
-        kind: MachineConfig
-        name: 01-worker-container-runtime
-      - apiVersion: machineconfiguration.openshift.io/v1
-        kind: MachineConfig
-        name: 01-worker-kubelet
-      - apiVersion: machineconfiguration.openshift.io/v1
-        kind: MachineConfig
-        name: 99-worker-generated-crio-seccomp-use-default
-      - apiVersion: machineconfiguration.openshift.io/v1
-        kind: MachineConfig
-        name: 99-worker-generated-registries
-      - apiVersion: machineconfiguration.openshift.io/v1
-        kind: MachineConfig
-        name: 99-worker-ssh
   machineConfigSelector:
     matchLabels:
       machineconfiguration.openshift.io/role: worker
   nodeSelector:
     matchLabels:
       node-role.kubernetes.io/router: ''
-  paused: false

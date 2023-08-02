@@ -1,0 +1,28 @@
+apiVersion: operator.openshift.io/v1
+kind: IngressController
+metadata:
+  name: default
+  namespace: openshift-ingress-operator
+spec:
+  nodePlacement:
+    nodeSelector:
+      matchLabels:
+        node: router
+        node-role.kubernetes.io/router: ''
+    tolerations:
+      - effect: NoSchedule
+        key: router
+        operator: Exists
+  tuningOptions: {}
+  clientTLS:
+    clientCA:
+      name: ''
+    clientCertificatePolicy: ''
+  unsupportedConfigOverrides: null
+  defaultCertificate:
+    name: ingress-certs-2023-07-24
+  httpErrorCodePages:
+    name: ''
+  replicas: 2
+  httpEmptyRequestsPolicy: Respond
+  httpCompression: {}

@@ -15,8 +15,8 @@ spec:
     metadata:
       labels:
         machine.openshift.io/cluster-api-cluster: cluster-rwlwm-gpjp6
-        machine.openshift.io/cluster-api-machine-role: infra
-        machine.openshift.io/cluster-api-machine-type: infra
+        machine.openshift.io/cluster-api-machine-role: worker
+        machine.openshift.io/cluster-api-machine-type: worker
         machine.openshift.io/cluster-api-machineset: cluster-rwlwm-gpjp6-logging-ap-southeast-1c
     spec:
       taints:
