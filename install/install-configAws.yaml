@@ -1,0 +1,55 @@
+additionalTrustBundlePolicy: Proxyonly
+apiVersion: v1
+baseDomain: devops-msi.cloud
+compute:
+  - architecture: amd64
+    hyperthreading: Enabled
+    name: worker
+    platform:
+      aws:
+        metadataService: {}
+        rootVolume:
+          iops: 2000
+          size: 500
+          type: io1
+        type: c5.4xlarge
+        zones:
+          - ap-southeast-1a
+          - ap-southeast-1b
+          - ap-southeast-1c
+    replicas: 3
+controlPlane:
+  architecture: amd64
+  hyperthreading: Enabled
+  name: master
+  platform:
+    aws:
+      metadataService: {}
+      rootVolume:
+        iops: 4000
+        size: 500
+        type: io1
+      type: m5.xlarge
+      zones:
+        - ap-southeast-1a
+        - ap-southeast-1b
+        - ap-southeast-1c
+  replicas: 3
+metadata:
+  creationTimestamp: null
+  name: mastersystem
+networking:
+  clusterNetwork:
+    - cidr: 10.128.0.0/14
+      hostPrefix: 23
+  machineNetwork:
+    - cidr: 10.0.0.0/16
+  networkType: OVNKubernetes
+  serviceNetwork:
+    - 172.30.0.0/16
+platform:
+  aws:
+    region: ap-southeast-1
+publish: External
+pullSecret: ''
+sshKey: ''

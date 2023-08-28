@@ -20,12 +20,11 @@ spec:
         machine.openshift.io/cluster-api-machineset: cluster-csvlw-fjfgb-openshift-data-foundation-ap-southeast-1c
     spec:
       taints:
-        - key: node.ocs.openshift.io/storage
+        - effect: NoSchedule
+          key: node.ocs.openshift.io/storage
           value: 'true'
-          effect: NoSchedule
       metadata:
         labels:
-          node-role.kubernetes.io: infra
           node-role.kubernetes.io/infra: ''
           cluster.ocs.openshift.io/openshift-storage: ''
       providerSpec:

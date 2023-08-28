@@ -1,0 +1,8 @@
+apiVersion: config.openshift.io/v1
+kind: Image
+metadata:
+  name: cluster
+spec:
+  registrySources:
+    insecureRegistries:
+      - '108.137.80.76:8082'

@@ -5,7 +5,7 @@ metadata:
   namespace: openshift-monitoring
 data:
   config.yaml: |
-    prometheusOperator:
+    alertmanagerMain:
       nodeSelector:
         node: monitoring-registry
       tolerations:
@@ -13,6 +13,12 @@ data:
           operator: "Equal"
           value: "monitoring-registry"
           effect: "NoSchedule"
+      volumeClaimTemplate:
+        spec:
+          storageClassName: ocs-storagecluster-ceph-rbd
+          resources:
+            requests:
+              storage: 20Gi
     prometheusK8s:
       nodeSelector:
         node: monitoring-registry
@@ -29,37 +35,7 @@ data:
           resources:
             requests:
               storage: 100Gi
-    alertmanagerMain:
-      nodeSelector:
-        node: monitoring-registry
-      tolerations:
-        - key: "node"
-          operator: "Equal"
-          value: "monitoring-registry"
-          effect: "NoSchedule"
-      volumeClaimTemplate:
-        spec:
-          storageClassName: ocs-storagecluster-ceph-rbd
-          resources:
-            requests:
-              storage: 20Gi
-    kubeStateMetrics:
-      nodeSelector:
-        node: monitoring-registry
-      tolerations:
-        - key: "node"
-          operator: "Equal"
-          value: "monitoring-registry"
-          effect: "NoSchedule"
-    grafana:
-      nodeSelector:
-        node: monitoring-registry
-      tolerations:
-        - key: "node"
-          operator: "Equal"
-          value: "monitoring-registry"
-          effect: "NoSchedule"
-    telemeterClient:
+    prometheusOperator:
       nodeSelector:
         node: monitoring-registry
       tolerations:
@@ -68,6 +44,22 @@ data:
           value: "monitoring-registry"
           effect: "NoSchedule"
     k8sPrometheusAdapter:
+      nodeSelector:
+        node: monitoring-registry
+      tolerations:
+        - key: "node"
+          operator: "Equal"
+          value: "monitoring-registry"
+          effect: "NoSchedule"
+    kubeStateMetrics:
+      nodeSelector:
+        node: monitoring-registry
+      tolerations:
+        - key: "node"
+          operator: "Equal"
+          value: "monitoring-registry"
+          effect: "NoSchedule"
+    telemeterClient:
       nodeSelector:
         node: monitoring-registry
       tolerations:
@@ -84,6 +76,14 @@ data:
           value: "monitoring-registry"
           effect: "NoSchedule"
     thanosQuerier:
+      nodeSelector:
+        node: monitoring-registry
+      tolerations:
+        - key: "node"
+          operator: "Equal"
+          value: "monitoring-registry"
+          effect: "NoSchedule"
+    grafana:
       nodeSelector:
         node: monitoring-registry
       tolerations:
