@@ -1,0 +1,58 @@
+apiVersion: v1
+baseDomain: fajjjar.my.id
+controlPlane:
+  hyperthreading: Enabled
+  name: master
+  platform:
+    aws:
+      rootVolume:
+        iops: 4000
+        size: 100
+        type: gp3
+      type: m5.2xlarge
+      zones:
+        - ap-southeast-1a
+        - ap-southeast-1b
+        - ap-southeast-1c
+  replicas: 3
+compute:
+  - hyperthreading: Enabled
+    name: worker
+    platform:
+      aws:
+        rootVolume:
+          iops: 4000
+          size: 100
+          type: gp3
+        type: m5.4xlarge
+        zones:
+          - ap-southeast-1a
+          - ap-southeast-1b
+          - ap-southeast-1c
+    replicas: 3
+credentialsMode: Mint
+metadata:
+  name: management
+networking:
+  clusterNetwork:
+    - cidr: 10.128.0.0/14
+      hostPrefix: 23
+  machineNetwork:
+    - cidr: 10.0.0.0/16
+  networkType: OVNKubernetes
+  serviceNetwork:
+    - 172.30.0.0/16
+platform:
+  aws:
+    region: ap-southeast-1
+    lbType: NLB
+    subnets:
+      - subnet-0340b58f56efd4487
+      - subnet-084f1c729a2ce570b
+      - subnet-02a215f2149787e73
+      - subnet-067a28e4b40454a4d
+      - subnet-05903867e0904c85c
+      - subnet-03582f9e7f885cef9
+publish: External
+sshKey: ''
+pullSecret: ''

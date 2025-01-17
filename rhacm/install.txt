@@ -1,0 +1,22 @@
+ssh-keygen
+
+mkdir ocp
+vim ocp/install-config.yaml
+
+./openshift-install create manifests --dir ocp/
+./openshift-install create ignition-configs --dir ocp/
+./openshift-install create cluster --dir=ocp --log-level=debug
+./openshift-install wait-for install-complete --dir ocp/
+
+./openshift-install destroy cluster --dir ocp/
+
+
+
+sudo apt  install certbot -y
+sudo certbot certonly --manual --preferred-challenges=dns -d "*.apps.management.fajjjar.my.id"
+
+sudo cat /etc/letsencrypt/live/apps.management.fajjjar.my.id/fullchain.pem > tls.crt
+sudo cat /etc/letsencrypt/live/apps.management.fajjjar.my.id/private.key > tls.key
+
+oc create secret tls letsencrypt --cert=tls.crt --key=tls.key -n openshift-ingress
+oc patch ingresscontroller default -n openshift-ingress-operator --type=merge -p '{"spec":{"defaultCertificate":{"name":"letsencrypt"}}}'

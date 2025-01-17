@@ -14,7 +14,6 @@ spec:
     timeoutSeconds: 10
   auditLogs:
     collection: Auto
-  clusterName: management
   monitoring:
     openshift:
       enabled: true
@@ -46,3 +45,5 @@ spec:
         minReplicas: 2
         replicas: 3
     scannerComponent: Default
+  clusterName: management # CHANGE THIS
+  centralEndpoint: 'https://central-stackrox.apps.management.fajjjar.my.id' # CHANGE THIS
