@@ -1,0 +1,22 @@
+apiVersion: local.storage.openshift.io/v1alpha1
+kind: LocalVolumeSet
+metadata:
+  name: lvs
+  namespace: openshift-local-storage
+spec:
+  deviceInclusionSpec:
+    deviceTypes:
+      - disk
+      - part
+    minSize: 1Gi
+  nodeSelector:
+    nodeSelectorTerms:
+      - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+              - ip-10-0-129-37.ap-southeast-1.compute.internal
+              - ip-10-0-158-74.ap-southeast-1.compute.internal
+              - ip-10-0-166-79.ap-southeast-1.compute.internal
+  storageClassName: lvs-sc
+  volumeMode: Block

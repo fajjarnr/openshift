@@ -25,6 +25,7 @@ spec:
           value: 'true'
       metadata:
         labels:
+          node-role.kubernetes.io/odf: ''
           node-role.kubernetes.io/infra: ''
           cluster.ocs.openshift.io/openshift-storage: ''
       providerSpec:

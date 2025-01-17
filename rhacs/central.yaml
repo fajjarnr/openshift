@@ -1,0 +1,66 @@
+apiVersion: platform.stackrox.io/v1alpha1
+kind: Central
+metadata:
+  name: stackrox-central-services
+  namespace: stackrox
+spec:
+  central:
+    adminPasswordSecret:
+      name: stackrox-htpasswd
+    db:
+      connectionPoolSize:
+        maxConnections: 90
+        minConnections: 10
+      isEnabled: Default
+      persistence:
+        persistentVolumeClaim:
+          claimName: central-db
+    exposure:
+      loadBalancer:
+        enabled: false
+        port: 443
+      nodePort:
+        enabled: false
+      route:
+        enabled: true
+    notifierSecretsEncryption:
+      enabled: false
+    persistence:
+      persistentVolumeClaim:
+        claimName: stackrox-db
+    telemetry:
+      enabled: true
+  configAsCode:
+    configAsCodeComponent: Enabled
+  egress:
+    connectivityPolicy: Online
+  monitoring:
+    openshift:
+      enabled: true
+  network:
+    policies: Enabled
+  scanner:
+    analyzer:
+      scaling:
+        autoScaling: Enabled
+        maxReplicas: 5
+        minReplicas: 2
+        replicas: 3
+  scannerV4:
+    db:
+      persistence:
+        persistentVolumeClaim:
+          claimName: scanner-v4-db
+    indexer:
+      scaling:
+        autoScaling: Enabled
+        maxReplicas: 5
+        minReplicas: 2
+        replicas: 3
+    matcher:
+      scaling:
+        autoScaling: Enabled
+        maxReplicas: 5
+        minReplicas: 2
+        replicas: 3
+    scannerComponent: Enabled
