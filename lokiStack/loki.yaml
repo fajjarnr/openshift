@@ -1,0 +1,103 @@
+apiVersion: loki.grafana.com/v1
+kind: LokiStack
+metadata:
+  name: logging-loki
+  namespace: openshift-logging
+spec:
+  limits:
+    global:
+      retention:
+        days: 7
+  size: 1x.extra-small
+  replicationFactor: 2
+  storage:
+    schemas:
+      - effectiveDate: '2025-01-01'
+        version: v13
+    secret:
+      name: logging-loki-gcs
+      type: gcs
+  storageClassName: standard-csi
+  tenants:
+    mode: openshift-logging
+  template:
+    compactor:
+      nodeSelector:
+        node-role.kubernetes.io/logging: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
+    distributor:
+      nodeSelector:
+        node-role.kubernetes.io/logging: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
+    gateway:
+      nodeSelector:
+        node-role.kubernetes.io/logging: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
+    indexGateway:
+      nodeSelector:
+        node-role.kubernetes.io/logging: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
+    ingester:
+      nodeSelector:
+        node-role.kubernetes.io/logging: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
+    querier:
+      nodeSelector:
+        node-role.kubernetes.io/logging: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
+    queryFrontend:
+      nodeSelector:
+        node-role.kubernetes.io/logging: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
+    ruler:
+      nodeSelector:
+        node-role.kubernetes.io/logging: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
