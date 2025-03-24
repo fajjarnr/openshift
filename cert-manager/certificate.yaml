@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: apps-ocp-certificate
+  namespace: openshift-ingress
+spec:
+  commonName: apps.ocp.domain.com
+  dnsNames:
+    - 'apps.ocp.domain.com'
+    - '*.apps.ocp.domain.com'
+  secretName: apps-ocp-lab-snimmo-com-tls
+  isCA: false
+  issuerRef:
+    group: cert-manager.io
+    name: letsencrypt-cluster-issuer
+    kind: ClusterIssuer
