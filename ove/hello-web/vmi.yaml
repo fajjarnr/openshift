@@ -1,0 +1,56 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachineInstance
+metadata:
+  name: hello-web
+  namespace: web-servers
+spec:
+  architecture: amd64
+  domain:
+    cpu:
+      cores: 1
+      maxSockets: 4
+      model: host-model
+      sockets: 1
+      threads: 1
+    devices:
+      disks:
+        - bootOrder: 1
+          disk:
+            bus: virtio
+          name: hello-web
+        - disk:
+            bus: virtio
+          name: cloudinitdisk
+      interfaces:
+        - macAddress: 02:a5:5d:00:00:01
+          masquerade: {}
+          model: virtio
+          name: default
+      networkInterfaceMultiqueue: true
+      rng: {}
+    features:
+      acpi:
+        enabled: true
+    firmware:
+      uuid: 1de6cb6c-d070-5ed0-87a5-bb1194aba165
+    machine:
+      type: pc-q35-rhel8.4.0
+    memory:
+      guest: 2Gi
+      maxGuest: 8Gi
+    resources:
+      requests:
+        memory: 2Gi
+  evictionStrategy: LiveMigrate
+  hostname: hello-web
+  networks:
+    - name: default
+      pod: {}
+  terminationGracePeriodSeconds: 180
+  volumes:
+    - dataVolume:
+        name: hello-web
+      name: hello-web
+    - cloudInitNoCloud:
+        userDataBase64: IyEvYmluL2Jhc2gKdXNlcmFkZCAtRyB3aGVlbCBkZXZlbG9wZXIKZWNobyBkZXZlbG9wZXIgfCBwYXNzd2QgLS1zdGRpbiBkZXZlbG9wZXIKcmVzdG9yZWNvbiAvdmFyL3d3dy9odG1sLyo=
+      name: cloudinitdisk
