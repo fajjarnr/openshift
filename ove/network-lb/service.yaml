@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    flavor.template.kubevirt.io/small: 'true'
+    kubevirt.io: virt-launcher
+    kubevirt.io/domain: vm1
+    kubevirt.io/size: small
+    os.template.kubevirt.io/rhel8.4: 'true'
+    vm.kubevirt.io/name: vm1
+    workload.template.kubevirt.io/server: 'true'
+  name: vm1
+spec:
+  ports:
+    - port: 22
+      protocol: TCP
+      targetPort: 22
+  selector:
+    kubevirt.io/domain: vm1
+  type: LoadBalancer
+status:
+  loadBalancer: {}

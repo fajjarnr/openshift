@@ -1,0 +1,12 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  labels:
+    zone: gls
+  name: gls-metallb-ipaddresspool
+  namespace: metallb-system
+spec:
+  autoAssign: true
+  avoidBuggyIPs: false
+  addresses:
+    - 192.168.50.20-192.168.50.40

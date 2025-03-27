@@ -8,7 +8,7 @@ metadata:
   labels:
     app: hello-web
 spec:
-  runStrategy: Halted
+  runStrategy: Always
   template:
     metadata:
       annotations:
