@@ -1,0 +1,23 @@
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  annotations:
+    description: Linux bridge with enp127s0 as a port
+  name: br0-enp127s0-policy
+spec:
+  desiredState:
+    interfaces:
+      - bridge:
+          options:
+            stp:
+              enabled: false
+          port:
+            - name: enp127s0
+        ipv4:
+          dhcp: true
+          enabled: true
+        name: br0
+        state: up
+        type: linux-bridge
+  nodeSelector:
+    external-network: 'true'
