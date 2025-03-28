@@ -1,0 +1,101 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  labels:
+    flavor.template.kubevirt.io/small: 'true'
+    kubevirt.io/vm: mariadb-server
+    os.template.kubevirt.io/rhel8.4: 'true'
+    vm.kubevirt.io/template: rhel8-server-small
+    workload.template.kubevirt.io/server: 'true'
+  name: mariadb-server
+  namespace: storage-multiple
+spec:
+  dataVolumeTemplates:
+    - apiVersion: cdi.kubevirt.io/v1beta1
+      kind: DataVolume
+      metadata:
+        creationTimestamp: null
+        name: mariadb-server
+      spec:
+        pvc:
+          accessModes:
+            - ReadWriteMany
+          resources:
+            requests:
+              storage: 10Gi
+          storageClassName: ocs-external-storagecluster-ceph-rbd-virtualization
+          volumeMode: Block
+        source:
+          http:
+            url: http://utility.lab.example.com:8080/openshift4/images/mariadb-server.qcow2
+    - apiVersion: cdi.kubevirt.io/v1beta1
+      kind: DataVolume
+      metadata:
+        creationTimestamp: null
+        name: dbroot
+      spec:
+        pvc:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 15Gi
+          storageClassName: nfs-storage
+        source:
+          blank: {}
+  runStrategy: RerunOnFailure
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        flavor.template.kubevirt.io/small: 'true'
+        kubevirt.io/domain: mariadb-server
+        kubevirt.io/size: small
+        os.template.kubevirt.io/rhel8.4: 'true'
+        workload.template.kubevirt.io/server: 'true'
+    spec:
+      architecture: amd64
+      domain:
+        cpu:
+          cores: 1
+          sockets: 1
+          threads: 1
+        devices:
+          disks:
+            - bootOrder: 1
+              disk:
+                bus: virtio
+              name: mariadb-server
+            - disk:
+                bus: virtio
+              name: cloudinitdisk
+            - disk:
+                bus: virtio
+              name: dbroot
+          interfaces:
+            - masquerade: {}
+              model: virtio
+              name: default
+          networkInterfaceMultiqueue: true
+          rng: {}
+        machine:
+          type: pc-q35-rhel8.4.0
+        resources:
+          requests:
+            memory: 2Gi
+      evictionStrategy: LiveMigrate
+      hostname: mariadb-server
+      networks:
+        - name: default
+          pod: {}
+      terminationGracePeriodSeconds: 180
+      volumes:
+        - dataVolume:
+            name: mariadb-server
+          name: mariadb-server
+        - cloudInitNoCloud:
+            userDataBase64: IyEvYmluL2Jhc2gKdXNlcmFkZCAtRyB3aGVlbCBkZXZlbG9wZXIKZWNobyBkZXZlbG9wZXIgfCBwYXNzd2QgLS1zdGRpbiBkZXZlbG9wZXIKd2dldCAtTyAvcm9vdC9kYm1vdmUuc2ggaHR0cDovL3V0aWxpdHkubGFiLmV4YW1wbGUuY29tOjgwODAvZGJtb3ZlLnNoCmNobW9kIDcwMCAvcm9vdC9kYm1vdmUuc2gKc3lzdGVtY3RsIHN0b3AgbWFyaWFkYgpta2ZzLnhmcyAvZGV2L3ZkYwptb3VudCAvZGV2L3ZkYyAvbW50CmNob3duIG15c3FsOm15c3FsIC9tbnQKY3AgLWEgL3Zhci9saWIvbXlzcWwvKiAvbW50CnVtb3VudCAvbW50CnN5c3RlbWN0bCBzdGFydCBtYXJpYWRi
+          name: cloudinitdisk
+        - dataVolume:
+            name: dbroot
+          name: dbroot
