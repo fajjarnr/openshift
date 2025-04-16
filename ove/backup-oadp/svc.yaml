@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: centos-stream9
+  namespace: my-project
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    kubevirt.io/domain: centos-stream9
+    kubevirt.io/size: small
+  sessionAffinity: None
+  type: ClusterIP

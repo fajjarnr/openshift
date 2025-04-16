@@ -1,0 +1,42 @@
+apiVersion: oadp.openshift.io/v1alpha1
+kind: DataProtectionApplication
+metadata:
+  name: oadp-dpa
+  namespace: openshift-adp
+spec:
+  backupLocations:
+    - velero:
+        config:
+          insecureSkipTLSVerify: 'true'
+          profile: default
+          region: us-east-2
+          s3ForcePathStyle: 'true'
+          s3Url: https://s3-openshift-storage.apps.cluster-rc852.sandbox1438.opentlc.com
+        credential:
+          key: cloud
+          name: cloud-credentials
+        default: true
+        objectStorage:
+          bucket: backup-obc-d2641fb2-a6ed-4080-a0da-8afb85c5b34a
+          prefix: velero
+        provider: aws
+  configuration:
+    nodeAgent:
+      enable: true
+      uploaderType: kopia
+      # podConfig:
+      #   nodeSelector:
+      #     node-role.kubernetes.io/nodeAgent: ''
+    velero:
+      defaultPlugins:
+        - aws
+        - csi
+        - openshift
+        - kubevirt
+      resourceTimeout: 10m
+  snapshotLocations:
+    - velero:
+        config:
+          profile: default
+          region: us-east-2
+        provider: aws
