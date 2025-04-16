@@ -1,0 +1,12 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: vm1
+  namespace: backup-snapshot
+spec:
+  source:
+    snapshot:
+      name: rhel9-0c9204ba64c2
+      namespace: openshift-virtualization-os-images
+  storage:
+    resources: {}

@@ -1,0 +1,106 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  labels:
+    kubevirt.io/vm: vm1
+    vm.kubevirt.io/template: rhel9-server-small
+    vm.kubevirt.io/template.namespace: openshift
+    vm.kubevirt.io/template.revision: '1'
+    vm.kubevirt.io/template.version: v0.29.2
+  name: vm1
+  namespace: backup-snapshot
+spec:
+  dataVolumeTemplates:
+    - apiVersion: cdi.kubevirt.io/v1beta1
+      kind: DataVolume
+      metadata:
+        creationTimestamp: null
+        name: vm1
+      spec:
+        sourceRef:
+          kind: DataSource
+          name: rhel9
+          namespace: openshift-virtualization-os-images
+        storage:
+          resources: {}
+  running: true
+  template:
+    metadata:
+      annotations:
+        vm.kubevirt.io/flavor: small
+        vm.kubevirt.io/os: rhel9
+        vm.kubevirt.io/workload: server
+      creationTimestamp: null
+      labels:
+        kubevirt.io/domain: vm1
+        kubevirt.io/size: small
+        workload.template.kubevirt.io/server: 'true'
+    spec:
+      architecture: amd64
+      domain:
+        cpu:
+          cores: 1
+          sockets: 1
+          threads: 1
+        devices:
+          disks:
+            - bootOrder: 1
+              disk:
+                bus: virtio
+              name: vm1
+            - disk:
+                bus: virtio
+              name: cloudinitdisk
+          interfaces:
+            - masquerade: {}
+              model: virtio
+              name: default
+          networkInterfaceMultiqueue: true
+          rng: {}
+        features:
+          acpi: {}
+          smm:
+            enabled: true
+        firmware:
+          bootloader:
+            efi: {}
+        machine:
+          type: pc-q35-rhel9.4.0
+        memory:
+          guest: 2Gi
+        resources: {}
+      evictionStrategy: LiveMigrate
+      hostname: vm1
+      networks:
+        - name: default
+          pod: {}
+      terminationGracePeriodSeconds: 180
+      volumes:
+        - dataVolume:
+            name: vm1
+          name: vm1
+        - cloudInitNoCloud:
+            userData: |-
+              #cloud-config
+              user: developer
+              password: developer
+              chpasswd: { expire: False }
+              ssh_authorized_keys:
+                - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGtUW3ismHyuCW4CDdTVOOOq6aySdtYenXFWWx7HJa4VTepkG00aaLId9ocra10hc+MB0GTJMCyabDv3i8NKdi6GDH/aOLVsp/Ewy8DEzZMBlJDCt4v2i4/wU4liw6KgEFkZs+5hnqU8d4QzldyGJ5onr+AGvFOKG68CS0BBl40Z1twf1HhCyx8k6nzD2ovlkxWRFZKPAFrtPCBVvQDkOfVFZF+lwzaSztgAjbFZ4A9jqQyUYx4kOJ5DtRef36ucdUdVQale0+8lICl7/gb142SPpYfhxe88/BJScLPRjvVNeu1TxRmoHtVazqnAoRxQYAn2MoI6AG+w6QuZf8f7aL LabGradingKey
+              yum_repos:
+                rhel-9.4-for-x86_64-baseos-rpms:
+                  baseurl: http://content.example.com/rhel9.4/x86_64/dvd/BaseOS # https://mirror.stream.centos.org/9-stream/BaseOS/
+                  enabled: true
+                  gpgcheck: false
+                  name: Red Hat Enterprise Linux 9.4 BaseOS (dvd)
+                rhel-9.4-for-x86_64-appstream-rpms:
+                  baseurl: http://content.example.com/rhel9.4/x86_64/dvd/AppStream # https://mirror.stream.centos.org/9-stream/AppStream/
+                  enabled: true
+                  gpgcheck: false
+                  name: Red Hat Enterprise Linux 9.4 AppStream (dvd)
+              packages:
+                - httpd
+              runcmd:
+                - systemctl enable httpd.service
+                - systemctl start --no-block httpd.service
+          name: cloudinitdisk
