@@ -1,0 +1,17 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: mariadb-server
+  namespace: backup-export
+spec:
+  pvc:
+    accessModes:
+      - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: ocs-storagecluster-ceph-rbd-virtualization
+    volumeMode: Block
+  source:
+    http:
+      url: https://cluster-rc852-z2z5n-image-registry-us-east-2-pihpgvrqarohntjas.s3.us-east-2.amazonaws.com/rhel9-mariadb.qcow2
