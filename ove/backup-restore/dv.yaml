@@ -1,0 +1,14 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: centos-stream9
+  namespace: my-project
+spec:
+  source:
+    snapshot:
+      name: centos-stream9-d4d5210f29a5
+      namespace: openshift-virtualization-os-images
+  storage:
+    resources:
+      requests:
+        storage: 30Gi
