@@ -1,0 +1,176 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-monitoring-config
+  namespace: openshift-monitoring
+data:
+  config.yaml: |
+    alertmanagerMain:
+      nodeSelector:
+        node-role.kubernetes.io/monreg: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
+        requests:
+          cpu: 200m
+          memory: 500Mi
+    prometheusK8s:
+      nodeSelector:
+        node-role.kubernetes.io/monreg: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
+      resources:
+        limits:
+          cpu: 500m
+          memory: 3Gi
+        requests:
+          cpu: 200m
+          memory: 500Mi
+    thanosQuerier:
+      nodeSelector:
+        node-role.kubernetes.io/monreg: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
+        requests:
+          cpu: 200m
+          memory: 500Mi
+    prometheusOperator:
+      nodeSelector:
+        node-role.kubernetes.io/monreg: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
+        requests:
+          cpu: 200m
+          memory: 500Mi
+    metricsServer:
+      nodeSelector:
+        node-role.kubernetes.io/monreg: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
+      resources:
+        requests:
+          cpu: 10m
+          memory: 50Mi
+        limits:
+          cpu: 50m
+          memory: 500Mi
+    kubeStateMetrics:
+      nodeSelector:
+        node-role.kubernetes.io/monreg: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
+        requests:
+          cpu: 200m
+          memory: 500Mi
+    telemeterClient:
+      nodeSelector:
+        node-role.kubernetes.io/monreg: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
+        requests:
+          cpu: 200m
+          memory: 500Mi
+    openshiftStateMetrics:
+      nodeSelector:
+        node-role.kubernetes.io/monreg: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
+        requests:
+          cpu: 200m
+          memory: 500Mi
+    nodeExporter:
+      resources:
+        limits:
+          cpu: 50m
+          memory: 150Mi
+        requests:
+          cpu: 20m
+          memory: 50Mi
+    monitoringPlugin:
+      nodeSelector:
+        node-role.kubernetes.io/monreg: ''
+      tolerations:
+        - key: infra
+          value: reserved
+          effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
+        requests:
+          cpu: 200m
+          memory: 500Mi
+    prometheusOperatorAdmissionWebhook:
+      resources:
+        limits:
+          cpu: 50m
+          memory: 100Mi
+        requests:
+          cpu: 20m
+          memory: 50Mi
