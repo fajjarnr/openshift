@@ -1,0 +1,104 @@
+apiVersion: loki.grafana.com/v1
+kind: LokiStack
+metadata:
+  name: logging-loki
+  namespace: openshift-logging
+spec:
+  limits:
+    global:
+      retention:
+        days: 7
+  managementState: Managed
+  replicationFactor: 2
+  size: 1x.extra-small
+  storage:
+    schemas:
+      - effectiveDate: '2025-05-01'
+        version: v13
+    secret:
+      name: logging-loki-s3
+      type: s3
+  storageClassName: gp3-csi
+  template:
+    compactor:
+      nodeSelector:
+        node-role.kubernetes.io/logging: ''
+      tolerations:
+        - effect: NoSchedule
+          key: infra
+          value: reserved
+        - effect: NoExecute
+          key: infra
+          value: reserved
+    distributor:
+      nodeSelector:
+        node-role.kubernetes.io/logging: ''
+      tolerations:
+        - effect: NoSchedule
+          key: infra
+          value: reserved
+        - effect: NoExecute
+          key: infra
+          value: reserved
+    gateway:
+      nodeSelector:
+        node-role.kubernetes.io/logging: ''
+      tolerations:
+        - effect: NoSchedule
+          key: infra
+          value: reserved
+        - effect: NoExecute
+          key: infra
+          value: reserved
+    indexGateway:
+      nodeSelector:
+        node-role.kubernetes.io/logging: ''
+      tolerations:
+        - effect: NoSchedule
+          key: infra
+          value: reserved
+        - effect: NoExecute
+          key: infra
+          value: reserved
+    ingester:
+      nodeSelector:
+        node-role.kubernetes.io/logging: ''
+      tolerations:
+        - effect: NoSchedule
+          key: infra
+          value: reserved
+        - effect: NoExecute
+          key: infra
+          value: reserved
+    querier:
+      nodeSelector:
+        node-role.kubernetes.io/logging: ''
+      tolerations:
+        - effect: NoSchedule
+          key: infra
+          value: reserved
+        - effect: NoExecute
+          key: infra
+          value: reserved
+    queryFrontend:
+      nodeSelector:
+        node-role.kubernetes.io/logging: ''
+      tolerations:
+        - effect: NoSchedule
+          key: infra
+          value: reserved
+        - effect: NoExecute
+          key: infra
+          value: reserved
+    ruler:
+      nodeSelector:
+        node-role.kubernetes.io/logging: ''
+      tolerations:
+        - effect: NoSchedule
+          key: infra
+          value: reserved
+        - effect: NoExecute
+          key: infra
+          value: reserved
+  tenants:
+    mode: openshift-logging
