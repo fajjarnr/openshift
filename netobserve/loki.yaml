@@ -1,0 +1,18 @@
+apiVersion: loki.grafana.com/v1
+kind: LokiStack
+metadata:
+  name: loki
+  namespace: netobserv
+spec:
+  managementState: Managed
+  size: 1x.demo
+  storage:
+    schemas:
+      - effectiveDate: '2025-06-01'
+        version: v13
+    secret:
+      name: netobserv-loki-s3
+      type: s3
+  storageClassName: gp3-csi
+  tenants:
+    mode: openshift-network
