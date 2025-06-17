@@ -1,0 +1,40 @@
+apiVersion: observability.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: instance
+  namespace: openshift-logging
+spec:
+  managementState: Managed
+  outputs:
+    - name: rsyslog
+      syslog:
+        appName: openshift
+        enrichment: KubernetesMinimal
+        rfc: RFC3164
+        severity: info
+        url: 'tcp://10.0.84.71:514'
+      type: syslog
+    - lokiStack:
+        authentication:
+          token:
+            from: serviceAccount
+        target:
+          name: logging-loki
+          namespace: openshift-logging
+      name: default-lokistack
+      tls:
+        ca:
+          configMapName: openshift-service-ca.crt
+          key: service-ca.crt
+      type: lokiStack
+  pipelines:
+    - inputRefs:
+        - application
+        - infrastructure
+        - audit
+      name: default-logstore
+      outputRefs:
+        - default-lokistack
+        - rsyslog
+  serviceAccount:
+    name: collector
