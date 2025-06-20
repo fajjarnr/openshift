@@ -1,0 +1,46 @@
+apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  name: cluster
+spec:
+  identityProviders:
+    - ldap:
+        attributes:
+          email:
+            - mail
+          id:
+            - dn
+          name:
+            - cn
+          preferredUsername:
+            - uid
+        bindDN: 'uid=admin,cn=users,cn=accounts,dc=sandbox2151,dc=opentlc,dc=com'
+        bindPassword:
+          name: ldap-bind-password
+        ca:
+          name: ldap-ca
+        insecure: false
+        url: 'ldap://idm.sandbox2151.opentlc.com/cn=users,cn=accounts,dc=sandbox2151,dc=opentlc,dc=com?uid'
+      mappingMethod: claim
+      name: Red Hat Identity Management
+      type: LDAP
+    - ldap:
+        attributes:
+          email:
+            - mail
+          id:
+            - dn
+          name:
+            - cn
+          preferredUsername:
+            - uid
+        bindDN: cn=Directory Manager
+        bindPassword:
+          name: ldap-bind-password-cmzgt
+        ca:
+          name: ldap-ca-89x8g
+        insecure: false
+        url: 'ldaps://idm.sandbox2151.opentlc.com/dc=sandbox2151,dc=opentlc,dc=com?uid'
+      mappingMethod: claim
+      name: Red Hat Directory Server
+      type: LDAP

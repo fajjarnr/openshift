@@ -1,0 +1,10 @@
+{
+  "realm": "master",
+  "auth-server-url": "https://keycloak-sso.apps.cluster-sh6mk.sandbox2151.opentlc.com/auth/",
+  "ssl-required": "external",
+  "resource": "ocp_rhsso",
+  "credentials": {
+    "secret": "abc"
+  },
+  "confidential-port": 0
+}

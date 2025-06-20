@@ -1,0 +1,24 @@
+apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  name: cluster
+spec:
+  identityProviders:
+    - type: OpenID
+      name: RHSSO_OIDC
+      mappingMethod: claim
+      openID:
+        claims:
+          email:
+            - email
+          groups:
+            - groups
+          name:
+            - name
+          preferredUsername:
+            - preferred_username
+        clientID: ocp_rhsso
+        clientSecret:
+          name: rhsso-oidc-client-secret
+        extraScopes: []
+        issuer: 'https://keycloak-sso.apps.cluster-sh6mk.sandbox2151.opentlc.com/auth/realms/master'
