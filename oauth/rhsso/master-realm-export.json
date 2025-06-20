@@ -912,7 +912,7 @@
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
-      "secret": "**********",
+      "secret": "",
       "redirectUris": [
         "https://oauth-openshift.apps.cluster-sh6mk.sandbox2151.opentlc.com/*"
       ],
