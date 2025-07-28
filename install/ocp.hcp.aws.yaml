@@ -1,0 +1,309 @@
+apiVersion: hypershift.openshift.io/v1beta1
+kind: HostedCluster
+metadata:
+  annotations:
+    create-external-hub-kubeconfig: '2025-07-28T15:48:07Z'
+    hypershift.openshift.io/HasBeenAvailable: 'true'
+    hypershift.openshift.io/force-upgrade-to: 'quay.io/openshift-release-dev/ocp-release:4.18.20-multi'
+  resourceVersion: '874565'
+  name: development
+  namespace: local-cluster
+  finalizers:
+    - hypershift.openshift.io/finalizer
+    - hypershift.io/aws-oidc-discovery
+  labels:
+    hypershift.openshift.io/auto-created-for-infra: dev-6bpmb
+spec:
+  channel: stable-4.18
+  fips: false
+  release:
+    image: 'quay.io/openshift-release-dev/ocp-release:4.18.20-multi'
+  dns:
+    baseDomain: sandbox1882.opentlc.com
+    privateZoneID: Z0230879QA9SM560HO5E
+    publicZoneID: ZRJ05843V3YWL
+  controllerAvailabilityPolicy: SingleReplica
+  infraID: dev-6bpmb
+  etcd:
+    managed:
+      storage:
+        persistentVolume:
+          size: 8Gi
+          storageClassName: gp3-csi
+        type: PersistentVolume
+    managementType: Managed
+  infrastructureAvailabilityPolicy: SingleReplica
+  platform:
+    aws:
+      cloudProviderConfig:
+        subnet:
+          id: subnet-04adf0f871489db61
+        vpc: vpc-061cd61c42879ad1f
+        zone: ap-southeast-1a
+      endpointAccess: Public
+      multiArch: false
+      region: ap-southeast-1
+      resourceTags:
+        - key: kubernetes.io/cluster/dev-6bpmb
+          value: owned
+      rolesRef:
+        controlPlaneOperatorARN: 'arn:aws:iam::242910632950:role/dev-6bpmb-control-plane-operator'
+        imageRegistryARN: 'arn:aws:iam::242910632950:role/dev-6bpmb-openshift-image-registry'
+        ingressARN: 'arn:aws:iam::242910632950:role/dev-6bpmb-openshift-ingress'
+        kubeCloudControllerARN: 'arn:aws:iam::242910632950:role/dev-6bpmb-cloud-controller'
+        networkARN: 'arn:aws:iam::242910632950:role/dev-6bpmb-cloud-network-config-controller'
+        nodePoolManagementARN: 'arn:aws:iam::242910632950:role/dev-6bpmb-node-pool'
+        storageARN: 'arn:aws:iam::242910632950:role/dev-6bpmb-aws-ebs-csi-driver-controller'
+    type: AWS
+  secretEncryption:
+    aescbc:
+      activeKey:
+        name: development-etcd-encryption-key
+    type: aescbc
+  networking:
+    clusterNetwork:
+      - cidr: 10.132.0.0/14
+    machineNetwork:
+      - cidr: 10.0.0.0/16
+    networkType: OVNKubernetes
+    serviceNetwork:
+      - cidr: 172.31.0.0/16
+  clusterID: 211e3e1b-1180-4f33-bd93-1f6a89e4e618
+  pullSecret:
+    name: development-pull-secret
+  configuration: {}
+  capabilities: {}
+  issuerURL: 'https://oidc-storage-6bpmb.s3.us-east-2.amazonaws.com/dev-6bpmb'
+  sshKey:
+    name: development-ssh-key
+  autoscaling: {}
+  olmCatalogPlacement: management
+  services:
+    - service: APIServer
+      servicePublishingStrategy:
+        type: LoadBalancer
+    - service: Ignition
+      servicePublishingStrategy:
+        type: Route
+    - service: Konnectivity
+      servicePublishingStrategy:
+        type: Route
+    - service: OAuthServer
+      servicePublishingStrategy:
+        type: Route
+status:
+  ignitionEndpoint: ignition-server-local-cluster-development.apps.cluster-6bpmb.6bpmb.sandbox1882.opentlc.com
+  payloadArch: Multi
+  oauthCallbackURLTemplate: 'https://oauth-local-cluster-development.apps.cluster-6bpmb.6bpmb.sandbox1882.opentlc.com:443/oauth2callback/[identity-provider-name]'
+  kubeconfig:
+    name: development-admin-kubeconfig
+  platform:
+    aws:
+      defaultWorkerSecurityGroupID: sg-08947f3afe81af1db
+  controlPlaneEndpoint:
+    host: a948f182e517a4389b4481f2858ce964-7d83910cc5300550.elb.ap-southeast-1.amazonaws.com
+    port: 6443
+  version:
+    availableUpdates: null
+    desired:
+      channels:
+        - candidate-4.18
+        - candidate-4.19
+        - candidate-4.20
+        - eus-4.18
+        - fast-4.18
+        - fast-4.19
+        - stable-4.18
+        - stable-4.19
+      image: 'quay.io/openshift-release-dev/ocp-release@sha256:c78c1eafc0c4ea46a83e6fea53aed8272259415a3686281b3cb866242d9181f5'
+      url: 'https://access.redhat.com/errata/RHSA-2025:10767'
+      version: 4.18.20
+    history:
+      - completionTime: '2025-07-28T17:09:21Z'
+        image: 'quay.io/openshift-release-dev/ocp-release@sha256:c78c1eafc0c4ea46a83e6fea53aed8272259415a3686281b3cb866242d9181f5'
+        startedTime: '2025-07-28T17:02:06Z'
+        state: Completed
+        verified: false
+        version: 4.18.20
+      - completionTime: '2025-07-27T15:00:24Z'
+        image: 'quay.io/openshift-release-dev/ocp-release@sha256:05cf35f1a666ce78888a3ddd202be46b15f73a64eadb738f3cc24b2bdb2cf2f5'
+        startedTime: '2025-07-27T14:43:54Z'
+        state: Completed
+        verified: false
+        version: 4.18.4
+    observedGeneration: 2
+  conditions:
+    - lastTransitionTime: '2025-07-28T15:48:59Z'
+      message: All is well
+      observedGeneration: 3
+      reason: AsExpected
+      status: 'True'
+      type: ValidAWSIdentityProvider
+    - lastTransitionTime: '2025-07-28T17:03:51Z'
+      message: ''
+      observedGeneration: 5
+      reason: FromClusterVersion
+      status: 'True'
+      type: ClusterVersionSucceeding
+    - lastTransitionTime: '2025-07-28T17:09:21Z'
+      message: Cluster version is 4.18.20
+      observedGeneration: 5
+      reason: FromClusterVersion
+      status: 'False'
+      type: ClusterVersionProgressing
+    - lastTransitionTime: '2025-07-27T14:44:04Z'
+      message: 'Payload loaded version="4.18.20" image="quay.io/openshift-release-dev/ocp-release@sha256:c78c1eafc0c4ea46a83e6fea53aed8272259415a3686281b3cb866242d9181f5" architecture="Multi"'
+      observedGeneration: 5
+      reason: PayloadLoaded
+      status: 'True'
+      type: ClusterVersionReleaseAccepted
+    - lastTransitionTime: '2025-07-28T17:01:33Z'
+      message: 'Kubernetes 1.32 and therefore OpenShift 4.19 remove several APIs which require admin consideration. Please see the knowledge article https://access.redhat.com/articles/7112216 for details and instructions.'
+      observedGeneration: 5
+      reason: AdminAckRequired
+      status: 'False'
+      type: ClusterVersionUpgradeable
+    - lastTransitionTime: '2025-07-27T15:00:24Z'
+      message: Done applying 4.18.20
+      observedGeneration: 5
+      reason: FromClusterVersion
+      status: 'True'
+      type: ClusterVersionAvailable
+    - lastTransitionTime: '2025-07-28T17:02:20Z'
+      message: The hosted cluster is not degraded
+      observedGeneration: 5
+      reason: AsExpected
+      status: 'False'
+      type: Degraded
+    - lastTransitionTime: '2025-07-28T17:00:09Z'
+      message: ''
+      observedGeneration: 5
+      reason: QuorumAvailable
+      status: 'True'
+      type: EtcdAvailable
+    - lastTransitionTime: '2025-07-28T15:48:30Z'
+      message: Kube APIServer deployment is available
+      observedGeneration: 5
+      reason: AsExpected
+      status: 'True'
+      type: KubeAPIServerAvailable
+    - lastTransitionTime: '2025-07-27T14:40:20Z'
+      message: All is well
+      observedGeneration: 5
+      reason: AsExpected
+      status: 'True'
+      type: InfrastructureReady
+    - lastTransitionTime: '2025-07-27T14:39:04Z'
+      message: External DNS is not configured
+      observedGeneration: 5
+      reason: StatusUnknown
+      status: Unknown
+      type: ExternalDNSReachable
+    - lastTransitionTime: '2025-07-27T14:40:04Z'
+      message: Configuration passes validation
+      observedGeneration: 5
+      reason: AsExpected
+      status: 'True'
+      type: ValidHostedControlPlaneConfiguration
+    - lastTransitionTime: '2025-07-27T14:40:19Z'
+      message: All is well
+      observedGeneration: 5
+      reason: AsExpected
+      status: 'True'
+      type: ValidReleaseInfo
+    - lastTransitionTime: '2025-07-27T14:42:59Z'
+      message: Identity provider configuration is valid
+      observedGeneration: 5
+      reason: IDPConfigurationValid
+      status: 'True'
+      type: ValidIDPConfiguration
+    - lastTransitionTime: '2025-07-28T17:00:11Z'
+      message: The hosted control plane is available
+      observedGeneration: 5
+      reason: AsExpected
+      status: 'True'
+      type: Available
+    - lastTransitionTime: '2025-07-27T14:39:04Z'
+      message: AWSEndpointService conditions not found
+      reason: StatusUnknown
+      status: Unknown
+      type: AWSEndpointAvailable
+    - lastTransitionTime: '2025-07-27T14:39:04Z'
+      message: AWSEndpointService conditions not found
+      reason: StatusUnknown
+      status: Unknown
+      type: AWSEndpointServiceAvailable
+    - lastTransitionTime: '2025-07-27T14:39:04Z'
+      message: Configuration passes validation
+      observedGeneration: 5
+      reason: AsExpected
+      status: 'True'
+      type: ValidConfiguration
+    - lastTransitionTime: '2025-07-27T14:39:04Z'
+      message: HostedCluster is supported by operator configuration
+      observedGeneration: 5
+      reason: AsExpected
+      status: 'True'
+      type: SupportedHostedCluster
+    - lastTransitionTime: '2025-07-28T15:47:57Z'
+      message: Ignition server deployment is available
+      observedGeneration: 5
+      reason: AsExpected
+      status: 'True'
+      type: IgnitionEndpointAvailable
+    - lastTransitionTime: '2025-07-27T14:39:04Z'
+      message: Reconciliation active on resource
+      observedGeneration: 5
+      reason: AsExpected
+      status: 'True'
+      type: ReconciliationActive
+    - lastTransitionTime: '2025-07-27T14:39:08Z'
+      message: Release image is valid
+      observedGeneration: 5
+      reason: AsExpected
+      status: 'True'
+      type: ValidReleaseImage
+    - lastTransitionTime: '2025-07-28T17:02:14Z'
+      message: HostedCluster is at expected version
+      observedGeneration: 5
+      reason: AsExpected
+      status: 'False'
+      type: Progressing
+    - lastTransitionTime: '2025-07-27T14:39:18Z'
+      message: Required platform credentials are found
+      observedGeneration: 3
+      reason: AsExpected
+      status: 'True'
+      type: PlatformCredentialsFound
+    - lastTransitionTime: '2025-07-27T14:39:29Z'
+      message: OIDC configuration is valid
+      observedGeneration: 5
+      reason: AsExpected
+      status: 'True'
+      type: ValidOIDCConfiguration
+    - lastTransitionTime: '2025-07-28T16:58:25Z'
+      message: Reconciliation completed successfully
+      observedGeneration: 5
+      reason: ReconciliatonSucceeded
+      status: 'True'
+      type: ReconciliationSucceeded
+    - lastTransitionTime: '2025-07-27T14:40:04Z'
+      message: AWS KMS is not configured
+      observedGeneration: 5
+      reason: StatusUnknown
+      status: Unknown
+      type: ValidAWSKMSConfig
+    - lastTransitionTime: '2025-07-27T14:44:03Z'
+      message: All is well
+      observedGeneration: 5
+      reason: AsExpected
+      status: 'True'
+      type: AWSDefaultSecurityGroupCreated
+    - lastTransitionTime: '2025-07-28T16:50:34Z'
+      message: ''
+      observedGeneration: 5
+      reason: FromClusterVersion
+      status: 'True'
+      type: ClusterVersionRetrievedUpdates
+  kubeadminPassword:
+    name: development-kubeadmin-password

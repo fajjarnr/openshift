@@ -1,23 +1,23 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-production-ec2
+  name: letsencrypt-cluster-issuer
 spec:
   acme:
-    email: ''
+    email: 'zfajart@gmail.com'
     privateKeySecretRef:
       name: cluster-issuer-acme-production
     server: 'https://acme-v02.api.letsencrypt.org/directory'
     solvers:
       - dns01:
           route53:
-            accessKeyID: ''
-            hostedZoneID: ''
-            region: us-east-2
+            accessKeyID: 'AKIAWLF2OSJSUD32IKVP'
+            hostedZoneID: 'Z2Q38T94BJI7YQ'
+            region: us-east-1
             secretAccessKeySecretRef:
               key: aws_secret_access_key
               name: cert-manager-aws-creds
         selector:
-          dnsZones:
-            - api.cluster.domain.io
-            - apps.cluster.domain.io
+          dnsNames:
+            - "apps.development.sandbox1111.opentlc.com"
+            - "*.apps.development.sandbox1111.opentlc.com"

@@ -1,0 +1,24 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:DescribeLoadBalancers",
+                "tag:GetResources",
+                "route53:ListHostedZones"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "route53:ChangeResourceRecordSets"
+            ],
+            "Resource": [
+                "arn:aws:route53:::hostedzone/ZRJ05843V3YWL", # public hosted zone
+                "arn:aws:route53:::hostedzone/Z0230879QA9SM560HO5E" # private hosted zone
+            ]
+        }
+    ]
+}

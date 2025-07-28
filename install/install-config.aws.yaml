@@ -51,12 +51,12 @@ platform:
     region: ap-southeast-1
     lbType: NLB
     subnets:
-      - subnet-09a98ef168c692610
-      - subnet-0d38010b4da0cbcc2
-      - subnet-05298fa419a883546
-      - subnet-0332bd6e515e92da6
-      - subnet-0d58e3cf8d92e5635
-      - subnet-0fa8681aac841b3a4
+      - subnet-0514624bcd6b2d8f2
+      - subnet-0ac24c93c57f11506
+      - subnet-02e013723f6a7d714
+      - subnet-072cf43726618c586
+      - subnet-0aa7310e89265208b
+      - subnet-0b8962caa7a41da56
     userTags:
       Stack: project ocp4-cluster-d24wd
       env_type: ocp4-cluster

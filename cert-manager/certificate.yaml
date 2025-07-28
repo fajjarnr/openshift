@@ -4,11 +4,11 @@ metadata:
   name: apps-ocp-certificate
   namespace: openshift-ingress
 spec:
-  commonName: apps.ocp.domain.com
+  commonName: 'apps.development.sandbox1111.opentlc.com'
   dnsNames:
-    - 'apps.ocp.domain.com'
-    - '*.apps.ocp.domain.com'
-  secretName: apps-ocp-lab-snimmo-com-tls
+    - 'apps.development.sandbox1111.opentlc.com'
+    - '*.apps.development.sandbox1111.opentlc.com'
+  secretName: apps-ocp-lab-tls
   isCA: false
   issuerRef:
     group: cert-manager.io
