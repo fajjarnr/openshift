@@ -1,0 +1,20 @@
+# File: api-server-certificate.yaml
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: api-server-certificate
+  namespace: openshift-config
+spec:
+  secretName: api-server-tls-secret
+  commonName: api.cluster.ocp.fajjjar.my.id
+  dnsNames:
+    - api.cluster.ocp.fajjjar.my.id
+  privateKey:
+    algorithm: RSA
+    size: 2048
+  duration: 2160h
+  renewBefore: 360h
+  issuerRef:
+    name: letsencrypt-cluster-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io

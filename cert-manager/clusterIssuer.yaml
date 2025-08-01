@@ -11,13 +11,12 @@ spec:
     solvers:
       - dns01:
           route53:
-            accessKeyID: 'AKIAWLF2OSJSUD32IKVP'
-            hostedZoneID: 'Z2Q38T94BJI7YQ'
-            region: us-east-1
+            accessKeyID: 'AKIAUTGCS46F6IXUL7ON'
+            hostedZoneID: 'Z09396601IB9VV6QXL9QX'
+            region: ap-southeast-1
             secretAccessKeySecretRef:
               key: aws_secret_access_key
               name: cert-manager-aws-creds
         selector:
-          dnsNames:
-            - "apps.development.sandbox1111.opentlc.com"
-            - "*.apps.development.sandbox1111.opentlc.com"
+          dnsZones:
+            - 'ocp.fajjjar.my.id'

@@ -1,0 +1,20 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::123456789012:oidc-provider/<ROSA-oidc-endpoint>"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "<ROSA-oidc-endpoint>:sub": [
+            "system:serviceaccount:cert-manager-operator:cert-manager-operator-controller-manager",
+            "system:serviceaccount:cert-manager:cert-manager"
+          ]
+        }
+      }
+    }
+  ]
+}
