@@ -1,0 +1,8 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: cert-manager-zerossl-creds
+  namespace: cert-manager
+type: Opaque
+stringData:
+  zerossl_hmac_key: ''

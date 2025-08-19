@@ -1,0 +1,28 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: zerossl-production-ec2
+spec:
+  acme:
+    email: ''
+    externalAccountBinding:
+      keyID: mkjCYenily5qBLbCAW4MwQ
+      keySecretRef:
+        key: zerossl_hmac_key
+        name: cert-manager-zerossl-creds
+    privateKeySecretRef:
+      name: zerossl-prod
+    server: 'https://acme.zerossl.com/v2/DV90'
+    solvers:
+      - dns01:
+          route53:
+            accessKeyID: AKIAZQK2O23RBZGKAPQ5
+            hostedZoneID: Z1004586KK2QL1R8047F
+            region: ap-southeast-1
+            secretAccessKeySecretRef:
+              key: aws_secret_access_key
+              name: cert-manager-aws-creds
+        selector:
+          dnsZones:
+            - api.ocp.6qzf6.sandbox2246.opentlc.com
+            - apps.ocp.6qzf6.sandbox2246.opentlc.com

@@ -1,0 +1,9 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: cert-manager-aws-creds
+  namespace: cert-manager
+type: Opaque
+stringData:
+  aws_access_key_id: ''
+  aws_secret_access_key: ''
