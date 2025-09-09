@@ -5,7 +5,7 @@ metadata:
 spec:
   identityProviders:
     - type: OpenID
-      name: RHSSO_OIDC
+      name: Red Hat Single Sign-On
       mappingMethod: claim
       openID:
         claims:
