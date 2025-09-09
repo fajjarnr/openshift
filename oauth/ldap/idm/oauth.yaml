@@ -14,13 +14,13 @@ spec:
             - cn
           preferredUsername:
             - uid
-        bindDN: 'uid=admin,cn=users,cn=accounts,dc=sandbox2151,dc=opentlc,dc=com'
+        bindDN: 'uid=admin,cn=users,cn=accounts,dc=ocp,dc=fajjjar,dc=my,dc=id'
         bindPassword:
-          name: ldap-bind-password
+          name: idm-bind-password
         ca:
-          name: ldap-ca
+          name: idm-ca
         insecure: false
-        url: 'ldap://idm.sandbox2151.opentlc.com/cn=users,cn=accounts,dc=sandbox2151,dc=opentlc,dc=com?uid'
+        url: 'ldaps://idm.ocp.fajjjar.my.id/cn=users,cn=accounts,dc=ocp,dc=fajjjar,dc=my,dc=id?uid'
       mappingMethod: claim
       name: Red Hat Identity Management
       type: LDAP
@@ -36,11 +36,11 @@ spec:
             - uid
         bindDN: cn=Directory Manager
         bindPassword:
-          name: ldap-bind-password-cmzgt
+          name: ldap-bind-password
         ca:
-          name: ldap-ca-89x8g
+          name: ldap-ca
         insecure: false
-        url: 'ldaps://idm.sandbox2151.opentlc.com/dc=sandbox2151,dc=opentlc,dc=com?uid'
+        url: 'ldaps://rhds.ocp.fajjjar.my.id/dc=rhds,dc=ocp,dc=fajjjar,dc=my,dc=id?uid'
       mappingMethod: claim
       name: Red Hat Directory Server
       type: LDAP
