@@ -24,23 +24,3 @@ spec:
       mappingMethod: claim
       name: Red Hat Identity Management
       type: LDAP
-    - ldap:
-        attributes:
-          email:
-            - mail
-          id:
-            - dn
-          name:
-            - cn
-          preferredUsername:
-            - uid
-        bindDN: cn=Directory Manager
-        bindPassword:
-          name: ldap-bind-password
-        ca:
-          name: ldap-ca
-        insecure: false
-        url: 'ldaps://rhds.ocp.fajjjar.my.id/dc=rhds,dc=ocp,dc=fajjjar,dc=my,dc=id?uid'
-      mappingMethod: claim
-      name: Red Hat Directory Server
-      type: LDAP
