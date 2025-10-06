@@ -1,12 +1,12 @@
 apiVersion: v1
-baseDomain: sandbox2414.opentlc.com
+baseDomain: ocp.fajjjar.my.id
 controlPlane:
   hyperthreading: Enabled
   name: master
   platform:
     aws:
       rootVolume:
-        iops: 4000
+        iops: 3000
         size: 100
         type: gp3
       type: c5n.metal
@@ -45,3 +45,4 @@ platform:
       - subnet-051d768393bbec452
 publish: External
 sshKey: ''
+pullSecret: ''
