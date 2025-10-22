@@ -8,7 +8,7 @@ metadata:
 spec:
   replicas: 2
   defaultCertificate:
-    name: ingress-certs-2025-10-05
+    name: ingress-certs-2025-10-08
   endpointPublishingStrategy:
     loadBalancer:
       scope: External

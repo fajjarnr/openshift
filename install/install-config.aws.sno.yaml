@@ -1,0 +1,45 @@
+apiVersion: v1
+baseDomain: ocp.fajjjar.my.id
+compute:
+  - architecture: amd64
+    hyperthreading: Enabled
+    name: worker
+    platform: {}
+    replicas: 0
+controlPlane:
+  architecture: amd64
+  hyperthreading: Enabled
+  name: master
+  platform:
+    aws:
+      rootVolume:
+        size: 120
+        type: gp3
+      type: m6a.4xlarge
+      metadataService:
+        authentication: Required
+      zones:
+        - ap-southeast-1a
+  replicas: 1
+metadata:
+  name: sno
+networking:
+  machineCIDR: 10.0.0.0/16
+  machineNetwork:
+    - cidr: 10.0.0.0/16
+  clusterNetwork:
+    - cidr: 10.128.0.0/14
+      hostPrefix: 23
+  serviceNetwork:
+    - 172.30.0.0/16
+  networkType: OVNKubernetes
+platform:
+  aws:
+    region: ap-southeast-1
+    lbType: NLB
+    subnets:
+      - subnet-0a7ba29b5f72f3f69
+      - subnet-01d5a78a7d1e20a46
+publish: External
+sshKey: ''
+pullSecret: ''
