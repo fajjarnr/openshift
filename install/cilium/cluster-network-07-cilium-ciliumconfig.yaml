@@ -1,0 +1,81 @@
+apiVersion: cilium.io/v1alpha1
+kind: CiliumConfig
+metadata:
+  name: cilium
+  namespace: cilium
+spec:
+  # Native routing configuration
+  ipv4NativeRoutingCIDR: 10.128.0.0/14
+
+  # Endpoint routes configuration
+  endpointRoutes:
+    enabled: true
+
+  # IPAM configuration
+  ipam:
+    mode: cluster-pool
+    operator:
+      clusterPoolIPv4PodCIDRList:
+        - 10.128.0.0/14
+      clusterPoolIPv4MaskSize: 23
+
+  # CNI configuration for OpenShift
+  cni:
+    binPath: /var/lib/cni/bin
+    confPath: /var/run/multus/cni/net.d
+    exclusive: false
+    customConf: false
+
+  # Kube-proxy replacement
+  kubeProxyReplacement: strict
+  k8sServiceHost: api.cluster.ocp.fajjjar.my.id
+  k8sServicePort: 6443
+
+  # Cluster health port (higher port for OpenShift)
+  clusterHealthPort: 9940
+
+  # Node initialization
+  nodeInit:
+    enabled: true
+
+  # Security context
+  securityContext:
+    privileged: true
+
+  # Prometheus monitoring
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+  # Hubble observability
+  hubble:
+    enabled: true
+    metrics:
+      enabled:
+        - dns
+        - drop
+        - flow
+        - icmp
+        - tcp
+        - port-distribution
+        - httpV2:exemplars=true;labelsContext=source_ip,source_namespace,source_workload,destination_ip,destination_namespace,destination_workload,traffic_direction
+    tls:
+      enabled: false
+    relay:
+      enabled: true
+    ui:
+      enabled: true
+
+  # Session affinity
+  sessionAffinity: true
+
+  # Additional OpenShift specific settings
+  identityAllocationMode: crd
+
+  # Tunnel disabled for native routing
+  tunnel: disabled
+
+  # Enable IP Masquerading
+  bpf:
+    masquerade: true
