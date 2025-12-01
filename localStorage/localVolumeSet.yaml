@@ -5,6 +5,8 @@ metadata:
   namespace: openshift-local-storage
 spec:
   deviceInclusionSpec:
+    deviceMechanicalProperties:
+      - NonRotational
     deviceTypes:
       - disk
       - part
