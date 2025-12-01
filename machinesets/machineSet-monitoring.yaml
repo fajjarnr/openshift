@@ -57,6 +57,8 @@ spec:
               - name: tag:Name
                 values:
                   - cluster-csvlw-fjfgb-private-ap-southeast-1c
+          metadataServiceOptions:
+            authentication: Required
           tags:
             - name: kubernetes.io/cluster/cluster-csvlw-fjfgb
               value: owned

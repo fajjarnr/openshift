@@ -62,6 +62,8 @@ spec:
               - name: tag:Name
                 values:
                   - cluster-rwlwm-gpjp6-private-ap-southeast-1c
+          metadataServiceOptions:
+            authentication: Required
           tags:
             - name: kubernetes.io/cluster/cluster-rwlwm-gpjp6
               value: owned
