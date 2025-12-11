@@ -9,7 +9,7 @@ compute:
         rootVolume:
           size: 100
           type: gp3
-        type: m6a.4xlarge
+        type: m5.4xlarge
         metadataService:
           authentication: Required
         zones:
@@ -26,7 +26,7 @@ controlPlane:
       rootVolume:
         size: 100
         type: gp3
-      type: m6a.2xlarge
+      type: m5.2xlarge
       metadataService:
         authentication: Required
       zones:
