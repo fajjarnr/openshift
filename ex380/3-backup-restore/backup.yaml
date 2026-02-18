@@ -1,0 +1,16 @@
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: backup-lynx
+  namespace: openshift-adp
+spec:
+  includedNamespaces:
+    - lynx
+  includedResources:
+    - deployments
+    - statefulsets
+    - secrets
+    - pvc
+    - pv
+    - services
+    - routes

@@ -1,4 +1,4 @@
-#  oc replace --force --wait -f ingresscontroller.yaml
+#
 ---
 apiVersion: operator.openshift.io/v1
 kind: IngressController
@@ -8,7 +8,7 @@ metadata:
 spec:
   replicas: 2
   defaultCertificate:
-    name: ingress-certs-2025-10-08
+    name: ingress-certs-2025-12-15
   endpointPublishingStrategy:
     loadBalancer:
       scope: External

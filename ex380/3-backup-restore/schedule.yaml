@@ -1,0 +1,23 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: lynx-backup-scheduler
+  namespace: openshift-adp
+spec:
+  schedule: '0 5 * * 0'
+  paused: true
+  template:
+    ttl: 360h0m0s
+    includedNamespaces:
+      - lynx
+    orLabelSelectors:
+      - matchLabels:
+          app: mongo
+    includedResources:
+      - deployments
+      - statefulsets
+      - secrets
+      - pvc
+      - pv
+      - services
+      - routes

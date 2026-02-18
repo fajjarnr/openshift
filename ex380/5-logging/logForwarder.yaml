@@ -1,0 +1,50 @@
+apiVersion: 'logging.openshift.io/v1'
+kind: ClusterLogForwarder
+metadata:
+  name: instance
+  namespace: openshift-logging
+spec:
+  outputs:
+    - name: audit-syslog
+      type: syslog
+      url: tcp://47.129.236.140:516
+      syslog:
+        msgID: audit
+        appName: openshift
+        procID: vector
+        rfc: RFC5424
+        severity: informational
+    - name: apps-syslog
+      type: syslog
+      url: tcp://47.129.51.1:514
+      syslog:
+        msgID: apps
+        appName: openshift
+        procID: vector
+        rfc: RFC5424
+        severity: informational
+    - name: infra-syslog
+      type: syslog
+      url: tcp://47.129.51.1:515
+      syslog:
+        msgID: infra
+        appName: openshift
+        procID: vector
+        rfc: RFC5424
+        severity: informational
+  pipelines:
+    - name: app-syslog
+      inputRefs:
+        - application
+      outputRefs:
+        - apps-syslog
+    - name: infra-syslog
+      inputRefs:
+        - infrastructure
+      outputRefs:
+        - infra-syslog
+    - name: audit-syslog
+      inputRefs:
+        - audit
+      outputRefs:
+        - audit-syslog

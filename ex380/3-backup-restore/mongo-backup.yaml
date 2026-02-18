@@ -1,0 +1,41 @@
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: mongo
+  namespace: openshift-adp
+spec:
+  includedNamespaces:
+    - lynx
+  orLabelSelectors:
+    - matchLabels:
+        app: mongo
+    - matchLabels:
+        kubernetes.io/metadata.name: mongo
+  includedResources:
+    - deployments
+    - services
+    - secret
+    - pvc
+    - pv
+    - pods
+    - namespace
+  hooks:
+    resources:
+      - name: mongo-lock
+        labelSelector:
+          matchLabels:
+            app: mongo
+        pre:
+          - exec:
+              container: mongo
+              command:
+                - /usr/bin/mongosh
+                - --eval
+                - db.fsyncLock();
+        post:
+          - exec:
+              container: mongo
+              command:
+                - /usr/bin/mongosh
+                - --eval
+                - db.fsyncUnlock();

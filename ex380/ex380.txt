@@ -1,0 +1,17 @@
+exam 380
+
+1. deploy app ke semua node (hilangkan taint) trus tambah pod anti affinity, pdb
+2. create client cert signing req, kubeconfig, cluster-reader, cant delete
+3. restore app and mongo db, pastikan berhasil login di app
+4. login ldap & oidc, cek pake ldap search
+5. setup logging dengan type vector, forward syslog, app dan infra (logs) & audit (vault) appName openshift, sesuaikan specId
+6. create gitops app, create mc to setup /etc/motd menggunakan butane mode r--r--r, skip server validation
+
+
+
+Configure and manage OpenShift with LDAP and OIDC identity providers: 50%
+Back up and restore applications with OpenShift API for Data Protection (OADP): 0%
+Manage workloads with cluster partitioning: 50%
+Manage workloads with pod scheduling: 0%
+Implement OpenShift GitOps: 67%
+Provision and inspect cluster logging: 100%

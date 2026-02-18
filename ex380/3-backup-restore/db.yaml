@@ -1,0 +1,114 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: mongo
+  namespace: lynx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mongo
+    spec:
+      volumes:
+        - name: mongo
+          persistentVolumeClaim:
+            claimName: mongo
+      containers:
+        - name: mongo
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: root
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: mydb
+          ports:
+            - name: mongo
+              containerPort: 27017
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: mongo
+              mountPath: /data/db
+          terminationMessagePolicy: File
+          image: 'mongo:noble'
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mongo
+  namespace: lynx
+spec:
+  type: ClusterIP
+  ports:
+    - name: mongo
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
+  selector:
+    app: mongo
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mongo-express
+  namespace: lynx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-express
+  template:
+    metadata:
+      labels:
+        app: mongo-express
+    spec:
+      containers:
+        - name: mongo-express
+          image: mongo-express
+          ports:
+            - containerPort: 8081
+              protocol: TCP
+          env:
+            - name: ME_CONFIG_MONGODB_URL
+              value: 'mongodb://root:mydb@mongo:27017/?authSource=admin'
+            - name: ME_CONFIG_BASICAUTH_ENABLED
+              value: 'true'
+            - name: ME_CONFIG_BASICAUTH_USERNAME
+              value: admin
+            - name: ME_CONFIG_BASICAUTH_PASSWORD
+              value: pass
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mongo-express
+  namespace: lynx
+spec:
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+  selector:
+    app: mongo-express
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: mongo-express
+  namespace: lynx
+spec:
+  to:
+    kind: Service
+    name: mongo-express
+    weight: 100
+  port:
+    targetPort: 8081
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: None
+  wildcardPolicy: None
