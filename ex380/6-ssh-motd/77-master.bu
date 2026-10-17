@@ -1,0 +1,15 @@
+variant: openshift
+version: 4.14.0
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master
+  name: 77-custom-master-motd
+storage:
+  files:
+    - path: /etc/motd
+      mode: 0444
+      overwrite: true
+      contents:
+        inline: |
+          OPENSHIFT
+          Welcome to your OpenShift 4.14 Master Node!
