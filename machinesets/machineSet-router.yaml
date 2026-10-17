@@ -20,12 +20,15 @@ spec:
         machine.openshift.io/cluster-api-machineset: cluster-l7vjc-ss898-default-router-ap-southeast-1c
     spec:
       taints:
-        - key: infra-internal
+        - key: infra
+          value: reserved
           effect: NoSchedule
+        - key: infra
+          value: reserved
+          effect: NoExecute
       metadata:
         labels:
-          node-role.kubernetes.io/infra: ''
-          node: default-router
+          node-role.kubernetes.io/router: ''
       providerSpec:
         value:
           ami:
